@@ -371,11 +371,12 @@ class DriverAssistantAgent:
 
     @staticmethod
     def _supports_connector(station, connector_type: str) -> bool:
-        # BUG 2 FIX: handle both MobilityRecord objects and plain dicts
         if hasattr(station, "connector_types"):
             connectors = station.connector_types or []
         else:
             connectors = station.get("connector_types", []) or []
+        if not connectors:
+            return True
         from utils.normalizers import normalize_connector
         user_norm = normalize_connector(connector_type).upper()
         return any(normalize_connector(c).upper() == user_norm for c in connectors)

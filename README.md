@@ -2,7 +2,7 @@
 
 <div align="center">
 
-<img src="assets/hero-banner.svg" alt="EV Spatial Intelligence Engine Hero Banner" width="100%" />
+![EV Spatial Intelligence Engine Hero Banner](https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/hero-banner.svg?v=2.2)
 
 <br/><br/>
 
@@ -49,7 +49,7 @@ Traditional approaches suffer from three systemic failure modes:
 ## 🏗️ System Architecture & Visual Pipeline
 
 <div align="center">
-  <img src="assets/architecture-diagram.svg" alt="System Architecture Diagram" width="100%" />
+  <img src="https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/architecture-diagram.svg?v=2.2" alt="System Architecture Diagram" width="100%" />
 </div>
 
 <br/>
@@ -151,7 +151,7 @@ graph TD
 ## 📐 Mathematical Formulation ($M/M/c$ Erlang C Model)
 
 <div align="center">
-  <img src="assets/queue-model-flow.svg" alt="Queue Model Flow Diagram" width="100%" />
+  <img src="https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/queue-model-flow.svg?v=2.2" alt="Queue Model Flow Diagram" width="100%" />
 </div>
 
 <br/>
@@ -193,7 +193,7 @@ $$t_{p} = \max\left(0, \; -\frac{\ln\left(\frac{1 - p}{C(c, a)}\right)}{c\mu(1-\
 ## 🌐 3-Tier Data Provenance & Quality System
 
 <div align="center">
-  <img src="assets/data-provenance-matrix.svg" alt="Data Provenance Matrix" width="100%" />
+  <img src="https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/data-provenance-matrix.svg?v=2.2" alt="Data Provenance Matrix" width="100%" />
 </div>
 
 <br/>
