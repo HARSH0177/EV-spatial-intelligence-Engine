@@ -2,7 +2,7 @@
 
 <div align="center">
 
-![EV Spatial Intelligence Engine Hero Banner](https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/hero-banner.svg?v=2.2)
+![EV Spatial Intelligence Engine Hero Banner](https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/hero-banner.svg?v=2.3)
 
 <br/><br/>
 
@@ -49,7 +49,7 @@ Traditional approaches suffer from three systemic failure modes:
 ## 🏗️ System Architecture & Visual Pipeline
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/architecture-diagram.svg?v=2.2" alt="System Architecture Diagram" width="100%" />
+  <img src="https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/architecture-diagram.svg?v=2.3" alt="System Architecture Diagram" width="100%" />
 </div>
 
 <br/>
@@ -66,72 +66,6 @@ The system architecture diagram above illustrates the 4-layer asynchronous data 
    Executes continuous $M/M/c$ Erlang C stochastic queueing calculations, runs Gradient Boosted Regressors (`DemandForecaster`) for port load estimation, and triggers `QueueModelValidator` to guarantee mathematical consistency ($p_{50} \le p_{90}$) across all traffic intensities.
 4. **Layer 4 — Live Data Fusion & Hardware Protocol Layer:**  
    Fuses 6 live external sources (OpenChargeMap, OSM Overpass, Google Places, NREL AFDC, BigQuery, and OCPP 1.6 WebSockets) through a spatial deduplication engine (`ProviderMerge`), ensuring robust fallback when individual upstream APIs experience latency or rate limits.
-
-<br/>
-
-```mermaid
-%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E8F5E9', 'primaryTextColor': '#1B3B2B', 'primaryBorderColor': '#81C784', 'lineColor': '#2E4A3E', 'secondaryColor': '#EDE7F6', 'tertiaryColor': '#E3F2FD' }}}%%
-graph TD
-    subgraph ClientLayer ["1. Client & Gateway Layer"]
-        UI["Leaflet.js + OpenStreetMap SPA<br/>(/app)"]
-        API_GW["FastAPI REST & WebSocket Gateway"]
-    end
-
-    subgraph AgentLayer ["2. Autonomous Multi-Agent Orchestration"]
-        ORCH["OrchestratorAgent<br/>(Task Routing & Pipeline Coordinator)"]
-        DRIVER["DriverAssistantAgent<br/>(Discovery, Geo-Radius, Connector Filter)"]
-        ADVISOR["AdvisorAgent<br/>(Site Selection, District Extraction, Scoring)"]
-        DATA["DataAgent<br/>(BigQuery Aggregations, Port Status)"]
-        SCORING["ScoringAgent<br/>(Multi-Factor Viability Matrix)"]
-        EXPLAIN["ExplanationAgent<br/>(Vertex AI Gemini 2.0 Synthesis)"]
-    end
-
-    subgraph ModelLayer ["3. Mathematical & Predictive Models"]
-        QUEUE["M/M/c Erlang C Queue Model<br/>(Wait Time p50 / p90 Distributions)"]
-        FORECAST["DemandForecaster<br/>(Gradient Boosted Regressor)"]
-        VALIDATOR["QueueModelValidator<br/>(Invariant Assertion Engine)"]
-    end
-
-    subgraph DataFusionLayer ["4. Live Data Fusion & Provider Ingestion"]
-        MERGE["ProviderMerge & Deduplication Engine"]
-        GEO["GeoEnricher (Nominatim + Overpass Boundaries)"]
-        CACHE["In-Memory Multi-Tier TTL Cache"]
-    end
-
-    subgraph ExternalSources ["External Providers & Hardware Protocols"]
-        OCM["OpenChargeMap API<br/>(Global Registry)"]
-        OSM["OpenStreetMap / Overpass API<br/>(Parking & Amenities)"]
-        GPLACES["Google Places API<br/>(EV Enrichment)"]
-        NREL["NREL AFDC API<br/>(US Station Fallback)"]
-        BQ["Google BigQuery<br/>(Session Telemetry & Ports)"]
-        OCPP["OCPP 1.6 WebSocket Server<br/>(Live Hardware Status)"]
-    end
-
-    UI --> API_GW
-    API_GW --> ORCH
-    ORCH --> DRIVER
-    ORCH --> ADVISOR
-
-    DRIVER --> MERGE
-    DRIVER --> QUEUE
-    ADVISOR --> GEO
-    ADVISOR --> SCORING
-    ADVISOR --> EXPLAIN
-
-    SCORING --> QUEUE
-    SCORING --> FORECAST
-    EXPLAIN --> DATA
-
-    MERGE --> OCM
-    MERGE --> OSM
-    MERGE --> GPLACES
-    MERGE --> NREL
-    MERGE --> OCPP
-
-    GEO --> OSM
-    DATA --> BQ
-    QUEUE --> VALIDATOR
-```
 
 ---
 
@@ -151,7 +85,7 @@ graph TD
 ## 📐 Mathematical Formulation ($M/M/c$ Erlang C Model)
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/queue-model-flow.svg?v=2.2" alt="Queue Model Flow Diagram" width="100%" />
+  <img src="https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/queue-model-flow.svg?v=2.3" alt="Queue Model Flow Diagram" width="100%" />
 </div>
 
 <br/>
@@ -193,7 +127,7 @@ $$t_{p} = \max\left(0, \; -\frac{\ln\left(\frac{1 - p}{C(c, a)}\right)}{c\mu(1-\
 ## 🌐 3-Tier Data Provenance & Quality System
 
 <div align="center">
-  <img src="https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/data-provenance-matrix.svg?v=2.2" alt="Data Provenance Matrix" width="100%" />
+  <img src="https://raw.githubusercontent.com/HARSH0177/EV-spatial-intelligence-Engine/main/assets/data-provenance-matrix.svg?v=2.3" alt="Data Provenance Matrix" width="100%" />
 </div>
 
 <br/>
