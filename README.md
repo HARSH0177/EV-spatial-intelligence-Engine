@@ -46,7 +46,7 @@ Traditional approaches suffer from three systemic failure modes:
 
 ---
 
-## 🏗️ System Architecture
+## 🏗️ System Architecture & Visual Pipeline
 
 <div align="center">
   <img src="assets/architecture-diagram.svg" alt="System Architecture Diagram" width="100%" />
@@ -54,15 +54,30 @@ Traditional approaches suffer from three systemic failure modes:
 
 <br/>
 
+### 🔍 Architectural Layer Breakdown
+
+The system architecture diagram above illustrates the 4-layer asynchronous data processing pipeline:
+
+1. **Layer 1 — Interface & API Gateway Layer:**  
+   Users interact through a single, responsive Leaflet.js single-page application (`/app`) and a high-throughput FastAPI async gateway. Deployed on auto-scaling Google Cloud Run, it routes discovery queries and site-planning jobs across asynchronous workers.
+2. **Layer 2 — Autonomous Multi-Agent Orchestration Layer:**  
+   The `OrchestratorAgent` coordinates 5 specialized agents. `DriverAssistantAgent` manages spatial indexing, connector filters, and distance ranking. `AdvisorAgent` extracts administrative districts and synthesizes candidate zones. `ScoringAgent` computes multi-criteria viability scores. `DataAgent` queries BigQuery telemetry and active ports, while `ExplanationAgent` prompts Gemini 2.0 Flash for structured natural-language reasoning.
+3. **Layer 3 — Mathematical & Predictive Machine Learning Layer:**  
+   Executes continuous $M/M/c$ Erlang C stochastic queueing calculations, runs Gradient Boosted Regressors (`DemandForecaster`) for port load estimation, and triggers `QueueModelValidator` to guarantee mathematical consistency ($p_{50} \le p_{90}$) across all traffic intensities.
+4. **Layer 4 — Live Data Fusion & Hardware Protocol Layer:**  
+   Fuses 6 live external sources (OpenChargeMap, OSM Overpass, Google Places, NREL AFDC, BigQuery, and OCPP 1.6 WebSockets) through a spatial deduplication engine (`ProviderMerge`), ensuring robust fallback when individual upstream APIs experience latency or rate limits.
+
+<br/>
+
 ```mermaid
 %%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E8F5E9', 'primaryTextColor': '#1B3B2B', 'primaryBorderColor': '#81C784', 'lineColor': '#2E4A3E', 'secondaryColor': '#EDE7F6', 'tertiaryColor': '#E3F2FD' }}}%%
 graph TD
-    subgraph ClientLayer ["Client & Frontend Layer"]
+    subgraph ClientLayer ["1. Client & Gateway Layer"]
         UI["Leaflet.js + OpenStreetMap SPA<br/>(/app)"]
         API_GW["FastAPI REST & WebSocket Gateway"]
     end
 
-    subgraph AgentLayer ["Multi-Agent Autonomous Orchestration"]
+    subgraph AgentLayer ["2. Autonomous Multi-Agent Orchestration"]
         ORCH["OrchestratorAgent<br/>(Task Routing & Pipeline Coordinator)"]
         DRIVER["DriverAssistantAgent<br/>(Discovery, Geo-Radius, Connector Filter)"]
         ADVISOR["AdvisorAgent<br/>(Site Selection, District Extraction, Scoring)"]
@@ -71,19 +86,19 @@ graph TD
         EXPLAIN["ExplanationAgent<br/>(Vertex AI Gemini 2.0 Synthesis)"]
     end
 
-    subgraph ModelLayer ["Mathematical & Predictive Models"]
+    subgraph ModelLayer ["3. Mathematical & Predictive Models"]
         QUEUE["M/M/c Erlang C Queue Model<br/>(Wait Time p50 / p90 Distributions)"]
         FORECAST["DemandForecaster<br/>(Gradient Boosted Regressor)"]
         VALIDATOR["QueueModelValidator<br/>(Invariant Assertion Engine)"]
     end
 
-    subgraph DataFusionLayer ["Data Ingestion & Provider Fusion Layer"]
+    subgraph DataFusionLayer ["4. Live Data Fusion & Provider Ingestion"]
         MERGE["ProviderMerge & Deduplication Engine"]
         GEO["GeoEnricher (Nominatim + Overpass Boundaries)"]
         CACHE["In-Memory Multi-Tier TTL Cache"]
     end
 
-    subgraph ExternalSources ["Live External Data Sources & Protocols"]
+    subgraph ExternalSources ["External Providers & Hardware Protocols"]
         OCM["OpenChargeMap API<br/>(Global Registry)"]
         OSM["OpenStreetMap / Overpass API<br/>(Parking & Amenities)"]
         GPLACES["Google Places API<br/>(EV Enrichment)"]
@@ -141,24 +156,37 @@ graph TD
 
 <br/>
 
-To model real-world EV charging port wait times under stochastic arrival patterns ($\lambda$ arrivals/hr) and exponentially distributed charging session durations ($\mu$ sessions/hr per port) across $c$ ports:
+### 🔬 Stochastic Wait-Time Estimation Pipeline
 
-### 1. Traffic Intensity ($\rho$)
+The queueing flow diagram above maps the mathematical lifecycle of every wait-time prediction:
+
+1. **Stage 1 — Poisson Arrival Process ($\lambda$):**  
+   Models random vehicle arrival rates ($\lambda$ vehicles/hr) derived from urban traffic indices, localized amenity density, and EV adoption penetration proxies.
+2. **Stage 2 — Multi-Server Port Capacity ($c$, $\mu$):**  
+   Calculates traffic intensity $\rho = \frac{\lambda}{c \cdot \mu}$. When $\rho < 1.0$, the Erlang C delay probability formula $C(c, a)$ computes the exact probability that all $c$ chargers are occupied upon arrival.
+3. **Stage 3 — Percentile Wait Estimation ($p_{50}$ & $p_{90}$):**  
+   Evaluates the cumulative wait-time probability $P(T_q > t)$ to extract median ($p_{50}$) and 90th percentile tail ($p_{90}$) delay distributions.
+4. **Stage 4 — Invariant Assertion Mesh:**  
+   The mathematical invariant ($p_{50} \le p_{90}$) is continuously verified across **728 parameter configurations** ($\lambda \in [0.5, 20]$, $\mu \in [10, 60\text{ min}]$, $c \in [1, 10]$) with **100.0% adherence** and zero boundary violations.
+
+---
+
+### 🧮 Formal Queueing Equations
+
+#### 1. Traffic Intensity ($\rho$)
 $$\rho = \frac{\lambda}{c \cdot \mu} \quad (\text{System is stable when } \rho < 1)$$
 
-### 2. Erlang C Delay Probability ($C(c, a)$)
+#### 2. Erlang C Delay Probability ($C(c, a)$)
 The exact probability that an arriving vehicle finds all $c$ charging ports occupied and must queue:
 
 $$C(c, a) = \frac{\frac{a^c}{c!} \cdot \frac{1}{1 - \rho}}{\sum_{k=0}^{c-1} \frac{a^k}{k!} + \frac{a^c}{c!} \cdot \frac{1}{1 - \rho}} \quad \text{where } a = \frac{\lambda}{\mu}$$
 
-### 3. Percentile Wait-Time Invariant ($p_{50} \le p_{90}$)
+#### 3. Percentile Wait-Time Invariant ($p_{50} \le p_{90}$)
 The cumulative distribution function of waiting time $T_q$ for delayed vehicles yields exact percentiles:
 
 $$P(T_q > t) = C(c, a) \cdot e^{-c\mu(1-\rho)t}$$
 
 $$t_{p} = \max\left(0, \; -\frac{\ln\left(\frac{1 - p}{C(c, a)}\right)}{c\mu(1-\rho)}\right)$$
-
-> **Invariant Verification:** Tested across **728 distinct parameter configurations** ($\lambda \in [0.5, 20]$, $\mu \in [10, 60\text{ min}]$, $c \in [1, 10]$) with **100.0% adherence** ($p_{50} \le p_{90}$ with zero boundary violations).
 
 ---
 
@@ -167,6 +195,19 @@ $$t_{p} = \max\left(0, \; -\frac{\ln\left(\frac{1 - p}{C(c, a)}\right)}{c\mu(1-\
 <div align="center">
   <img src="assets/data-provenance-matrix.svg" alt="Data Provenance Matrix" width="100%" />
 </div>
+
+<br/>
+
+### 🛡️ Data Provenance Tiers & Confidence Scoring
+
+To ensure full transparency and avoid black-box decision making, every returned station and planning zone carries an immutable data quality label:
+
+1. **Tier 1: LIVE (Confidence: 0.95 – 1.00)**  
+   Direct ground-truth telemetry from OCPP 1.6 WebSocket servers and active BigQuery port sessions. Captures verified live connector power and real-time charging status.
+2. **Tier 2: ESTIMATED (Confidence: 0.70 – 0.94)**  
+   Synthesized from spatial API fusion (OpenChargeMap, Google Places, OSM Overpass) and modeled via $M/M/c$ Erlang C queueing theory and Gradient Boosted demand forecasts.
+3. **Tier 3: FALLBACK (Confidence: 0.30 – 0.69)**  
+   Employs deterministic seeded heuristics when external APIs experience network outages or rate limits. Carries an explicit `fallback_reason` field so users always know what is real vs. inferred.
 
 <br/>
 
