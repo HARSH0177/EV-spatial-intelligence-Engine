@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 640" width="100%" height="100%">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1100 680" width="100%" height="100%">
   <defs>
     <!-- Background & Gradients -->
     <linearGradient id="mainBg" x1="0%" y1="0%" x2="100%" y2="100%">
@@ -7,141 +7,146 @@
     </linearGradient>
 
     <filter id="boxShadow" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#14281E" flood-opacity="0.05" />
+      <feDropShadow dx="0" dy="3" stdDeviation="5" flood-color="#14281E" flood-opacity="0.04" />
     </filter>
 
     <marker id="arrow" viewBox="0 0 10 10" refX="6" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-      <path d="M 0 1 L 8 5 L 0 9 z" fill="#3D5A4C" />
+      <path d="M 0 1 L 8 5 L 0 9 z" fill="#455A64" />
     </marker>
   </defs>
 
   <style>
-    .header-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 800; font-size: 22px; fill: #11281E; }
-    .header-sub { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 500; font-size: 13px; fill: #486354; }
-    .layer-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 700; font-size: 13px; fill: #244636; text-transform: uppercase; letter-spacing: 0.8px; }
-    .card-title { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 700; font-size: 14px; fill: #11241B; }
-    .card-body { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 400; font-size: 11.5px; fill: #3F574B; }
-    .badge { font-family: 'Segoe UI', system-ui, sans-serif; font-weight: 600; font-size: 10.5px; fill: #1B5E20; }
+    .header-title { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 800; font-size: 22px; fill: #11281E; }
+    .header-sub { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 500; font-size: 13px; fill: #486354; }
+    .layer-title { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 700; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.8px; }
+    .card-title { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 700; font-size: 13.5px; fill: #11241B; }
+    .card-body { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 400; font-size: 11.5px; fill: #3F574B; }
   </style>
 
-  <!-- Background -->
-  <rect width="1100" height="640" rx="16" fill="url(#mainBg)" stroke="#DFECE5" stroke-width="1.5" />
+  <!-- Main Background Container -->
+  <rect width="1100" height="680" rx="16" fill="url(#mainBg)" stroke="#DFECE5" stroke-width="1.5" />
 
   <!-- Header Section -->
-  <g transform="translate(40, 28)">
-    <text x="0" y="22" class="header-title">System Architecture &amp; Multi-Agent Pipeline</text>
-    <text x="0" y="42" class="header-sub">End-to-end data flow from live spatial providers to queueing models and autonomous decision synthesis</text>
+  <g transform="translate(40, 24)">
+    <text x="0" y="20" class="header-title">System Architecture &amp; Multi-Agent Pipeline</text>
+    <text x="0" y="40" class="header-sub">End-to-end data flow from live spatial providers to queueing models and autonomous decision synthesis</text>
   </g>
 
-  <!-- Layer 1: Client & Gateway (Top) -->
-  <g transform="translate(40, 90)">
-    <rect width="1020" height="75" rx="12" fill="#F0F8FF" stroke="#CBE2F8" stroke-width="1" filter="url(#boxShadow)" />
-    <text x="20" y="24" class="layer-title" fill="#0D47A1">1. Interface &amp; API Gateway Layer</text>
+  <!-- ==========================================
+       LAYER 1: Interface & API Gateway Layer
+       ========================================== -->
+  <g transform="translate(40, 85)">
+    <rect width="1020" height="85" rx="12" fill="#F0F7FD" stroke="#CBE2F8" stroke-width="1" filter="url(#boxShadow)" />
+    <text x="20" y="22" class="layer-title" fill="#0D47A1">1. Interface &amp; API Gateway Layer</text>
 
-    <!-- UI -->
-    <g transform="translate(240, 16)">
-      <rect width="230" height="44" rx="8" fill="#FFFFFF" stroke="#BBDEFB" stroke-width="1" />
-      <text x="14" y="22" class="card-title">Leaflet.js Spatial Map UI</text>
-      <text x="14" y="37" class="card-body">Unified 2-in-1 Discovery &amp; Plan SPA</text>
+    <!-- UI Card -->
+    <g transform="translate(20, 32)">
+      <rect width="310" height="42" rx="8" fill="#FFFFFF" stroke="#BBDEFB" stroke-width="1" />
+      <text x="14" y="18" class="card-title">Leaflet.js Spatial Map UI</text>
+      <text x="14" y="33" class="card-body">Unified 2-in-1 Discovery &amp; Plan SPA (/app)</text>
     </g>
 
-    <!-- API -->
-    <g transform="translate(500, 16)">
-      <rect width="250" height="44" rx="8" fill="#FFFFFF" stroke="#BBDEFB" stroke-width="1" />
-      <text x="14" y="22" class="card-title">FastAPI Async Gateway</text>
-      <text x="14" y="37" class="card-body">/api/search/* &amp; /api/advisor/* Routes</text>
+    <!-- FastAPI Gateway Card -->
+    <g transform="translate(355, 32)">
+      <rect width="320" height="42" rx="8" fill="#FFFFFF" stroke="#BBDEFB" stroke-width="1" />
+      <text x="14" y="18" class="card-title">FastAPI Async Gateway</text>
+      <text x="14" y="33" class="card-body">/api/search/* &amp; /api/advisor/* REST Endpoints</text>
     </g>
 
-    <!-- Cloud Run -->
-    <g transform="translate(780, 16)">
-      <rect width="215" height="44" rx="8" fill="#E3F2FD" stroke="#90CAF9" stroke-width="1" />
-      <text x="14" y="22" class="card-title" fill="#0D47A1">Google Cloud Run</text>
-      <text x="14" y="37" class="card-body">Auto-scaling Container runtime</text>
+    <!-- Cloud Run Runtime Card -->
+    <g transform="translate(700, 32)">
+      <rect width="300" height="42" rx="8" fill="#E3F2FD" stroke="#90CAF9" stroke-width="1" />
+      <text x="14" y="18" class="card-title" fill="#0D47A1">Google Cloud Run</text>
+      <text x="14" y="33" class="card-body">Auto-scaling Serverless Container Runtime</text>
     </g>
   </g>
 
-  <!-- Connectors Layer 1 to Layer 2 -->
-  <path d="M 665 165 L 665 195" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <!-- Flow Connector: Layer 1 to Layer 2 -->
+  <path d="M 515 170 L 515 200" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
 
-  <!-- Layer 2: 6 Autonomous Agents (Core) -->
-  <g transform="translate(40, 195)">
+  <!-- ==========================================
+       LAYER 2: Autonomous Multi-Agent Layer
+       ========================================== -->
+  <g transform="translate(40, 200)">
     <rect width="1020" height="150" rx="12" fill="#E8F8F0" stroke="#BCE8CE" stroke-width="1" filter="url(#boxShadow)" />
     <text x="20" y="24" class="layer-title" fill="#1B5E20">2. Autonomous Multi-Agent Orchestration Layer</text>
 
-    <!-- Orchestrator -->
-    <g transform="translate(20, 42)">
-      <rect width="150" height="90" rx="8" fill="#FFFFFF" stroke="#A3E2BE" stroke-width="1.2" />
-      <text x="12" y="24" class="card-title" fill="#1B5E20">Orchestrator</text>
-      <text x="12" y="44" class="card-body">Task lifecycle</text>
-      <text x="12" y="60" class="card-body">Async routing</text>
-      <text x="12" y="76" class="card-body">Fallback coordinator</text>
+    <!-- Agent 1: Orchestrator -->
+    <g transform="translate(20, 38)">
+      <rect width="150" height="96" rx="8" fill="#FFFFFF" stroke="#A3E2BE" stroke-width="1.2" />
+      <text x="12" y="22" class="card-title" fill="#1B5E20">Orchestrator</text>
+      <text x="12" y="42" class="card-body">&bull; Task lifecycle</text>
+      <text x="12" y="60" class="card-body">&bull; Async routing</text>
+      <text x="12" y="78" class="card-body">&bull; Fallback coordinator</text>
     </g>
 
-    <!-- Driver Assistant -->
-    <g transform="translate(185, 42)">
-      <rect width="155" height="90" rx="8" fill="#FFFFFF" stroke="#A3E2BE" stroke-width="1.2" />
-      <text x="12" y="24" class="card-title" fill="#1B5E20">Driver Agent</text>
-      <text x="12" y="44" class="card-body">Spatial discovery</text>
-      <text x="12" y="60" class="card-body">Connector filter</text>
-      <text x="12" y="76" class="card-body">Distance ranking</text>
+    <!-- Agent 2: Driver Assistant -->
+    <g transform="translate(185, 38)">
+      <rect width="155" height="96" rx="8" fill="#FFFFFF" stroke="#A3E2BE" stroke-width="1.2" />
+      <text x="12" y="22" class="card-title" fill="#1B5E20">Driver Agent</text>
+      <text x="12" y="42" class="card-body">&bull; Spatial discovery</text>
+      <text x="12" y="60" class="card-body">&bull; Connector filter</text>
+      <text x="12" y="78" class="card-body">&bull; Distance ranking</text>
     </g>
 
-    <!-- Advisor Agent -->
-    <g transform="translate(355, 42)">
-      <rect width="155" height="90" rx="8" fill="#FFFFFF" stroke="#A3E2BE" stroke-width="1.2" />
-      <text x="12" y="24" class="card-title" fill="#1B5E20">Advisor Agent</text>
-      <text x="12" y="44" class="card-body">District extraction</text>
-      <text x="12" y="60" class="card-body">Competition matrix</text>
-      <text x="12" y="76" class="card-body">Zone synthesis</text>
+    <!-- Agent 3: Advisor Agent -->
+    <g transform="translate(355, 38)">
+      <rect width="155" height="96" rx="8" fill="#FFFFFF" stroke="#A3E2BE" stroke-width="1.2" />
+      <text x="12" y="22" class="card-title" fill="#1B5E20">Advisor Agent</text>
+      <text x="12" y="42" class="card-body">&bull; District extraction</text>
+      <text x="12" y="60" class="card-body">&bull; Competition matrix</text>
+      <text x="12" y="78" class="card-body">&bull; Zone synthesis</text>
     </g>
 
-    <!-- Scoring Agent -->
-    <g transform="translate(525, 42)">
-      <rect width="155" height="90" rx="8" fill="#FFFFFF" stroke="#A3E2BE" stroke-width="1.2" />
-      <text x="12" y="24" class="card-title" fill="#1B5E20">Scoring Agent</text>
-      <text x="12" y="44" class="card-body">Multi-factor utility</text>
-      <text x="12" y="60" class="card-body">Grid &amp; ROI analysis</text>
-      <text x="12" y="76" class="card-body">Viability ranking</text>
+    <!-- Agent 4: Scoring Agent -->
+    <g transform="translate(525, 38)">
+      <rect width="155" height="96" rx="8" fill="#FFFFFF" stroke="#A3E2BE" stroke-width="1.2" />
+      <text x="12" y="22" class="card-title" fill="#1B5E20">Scoring Agent</text>
+      <text x="12" y="42" class="card-body">&bull; Multi-factor utility</text>
+      <text x="12" y="60" class="card-body">&bull; Grid &amp; ROI analysis</text>
+      <text x="12" y="78" class="card-body">&bull; Viability ranking</text>
     </g>
 
-    <!-- Data Agent -->
-    <g transform="translate(695, 42)">
-      <rect width="145" height="90" rx="8" fill="#FFFFFF" stroke="#A3E2BE" stroke-width="1.2" />
-      <text x="12" y="24" class="card-title" fill="#1B5E20">Data Agent</text>
-      <text x="12" y="44" class="card-body">BigQuery client</text>
-      <text x="12" y="60" class="card-body">Port occupancy</text>
-      <text x="12" y="76" class="card-body">Session history</text>
+    <!-- Agent 5: Data Agent -->
+    <g transform="translate(695, 38)">
+      <rect width="145" height="96" rx="8" fill="#FFFFFF" stroke="#A3E2BE" stroke-width="1.2" />
+      <text x="12" y="22" class="card-title" fill="#1B5E20">Data Agent</text>
+      <text x="12" y="42" class="card-body">&bull; BigQuery client</text>
+      <text x="12" y="60" class="card-body">&bull; Port occupancy</text>
+      <text x="12" y="78" class="card-body">&bull; Session telemetry</text>
     </g>
 
-    <!-- Explanation Agent -->
-    <g transform="translate(855, 42)">
-      <rect width="145" height="90" rx="8" fill="#FAF4FF" stroke="#DFCAFB" stroke-width="1.2" />
-      <text x="12" y="24" class="card-title" fill="#5E249F">Explainer Agent</text>
-      <text x="12" y="44" class="card-body">Gemini 2.0 Flash</text>
-      <text x="12" y="60" class="card-body">Natural reasoning</text>
-      <text x="12" y="76" class="card-body">Signal attribution</text>
+    <!-- Agent 6: Explanation Agent -->
+    <g transform="translate(855, 38)">
+      <rect width="145" height="96" rx="8" fill="#FAF4FF" stroke="#DFCAFB" stroke-width="1.2" />
+      <text x="12" y="22" class="card-title" fill="#5E249F">Explainer Agent</text>
+      <text x="12" y="42" class="card-body">&bull; Gemini 2.0 Flash</text>
+      <text x="12" y="60" class="card-body">&bull; Natural reasoning</text>
+      <text x="12" y="78" class="card-body">&bull; Signal attribution</text>
     </g>
   </g>
 
-  <!-- Connectors Layer 2 to Layer 3 -->
-  <path d="M 430 345 L 430 375" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
-  <path d="M 600 345 L 600 375" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <!-- Flow Connectors: Layer 2 to Layer 3 -->
+  <path d="M 432 350 L 432 378" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <path d="M 602 350 L 602 378" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
 
-  <!-- Layer 3: Mathematical & Predictive Models -->
-  <g transform="translate(40, 375)">
+  <!-- ==========================================
+       LAYER 3: Mathematical & Predictive Models
+       ========================================== -->
+  <g transform="translate(40, 380)">
     <rect width="1020" height="95" rx="12" fill="#FFF8F0" stroke="#FDE2C6" stroke-width="1" filter="url(#boxShadow)" />
     <text x="20" y="24" class="layer-title" fill="#B7410E">3. Applied Queueing &amp; Predictive Machine Learning Layer</text>
 
     <!-- M/M/c Erlang C -->
     <g transform="translate(20, 36)">
-      <rect width="310" height="46" rx="8" fill="#FFFFFF" stroke="#FCD3A8" stroke-width="1" />
+      <rect width="315" height="46" rx="8" fill="#FFFFFF" stroke="#FCD3A8" stroke-width="1" />
       <text x="14" y="20" class="card-title">M/M/c Erlang C Queue Model</text>
       <text x="14" y="36" class="card-body">Stochastic p50 / p90 Wait-Time Distributions</text>
     </g>
 
     <!-- Demand Forecaster -->
-    <g transform="translate(350, 36)">
-      <rect width="320" height="46" rx="8" fill="#FFFFFF" stroke="#FCD3A8" stroke-width="1" />
+    <g transform="translate(355, 36)">
+      <rect width="315" height="46" rx="8" fill="#FFFFFF" stroke="#FCD3A8" stroke-width="1" />
       <text x="14" y="20" class="card-title">DemandForecaster (GBT Regressor)</text>
       <text x="14" y="36" class="card-body">Gradient Boosted Port Utilization Predictions</text>
     </g>
@@ -154,45 +159,73 @@
     </g>
   </g>
 
-  <!-- Connectors Layer 3 to Layer 4 -->
-  <path d="M 550 470 L 550 498" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
+  <!-- Flow Connector: Layer 3 to Layer 4 -->
+  <path d="M 515 475 L 515 505" stroke="#78909C" stroke-width="1.5" stroke-dasharray="4,4" marker-end="url(#arrow)" />
 
-  <!-- Layer 4: Live Data Ingestion & Protocols (Bottom) -->
-  <g transform="translate(40, 500)">
-    <rect width="1020" height="110" rx="12" fill="#F4FBF9" stroke="#CFECE4" stroke-width="1" filter="url(#boxShadow)" />
+  <!-- ==========================================
+       LAYER 4: Live Data Ingestion & Protocols
+       ========================================== -->
+  <g transform="translate(40, 505)">
+    <rect width="1020" height="145" rx="12" fill="#F4FBF9" stroke="#CFECE4" stroke-width="1" filter="url(#boxShadow)" />
     <text x="20" y="24" class="layer-title" fill="#00695C">4. Live Data Fusion &amp; Hardware Protocol Layer</text>
 
-    <!-- 6 Sources -->
-    <g transform="translate(20, 38)">
-      <!-- OCM -->
-      <rect x="0" y="0" width="150" height="56" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1" />
-      <text x="10" y="22" class="card-title" font-size="12">OpenChargeMap</text>
-      <text x="10" y="40" class="card-body" font-size="10.5">Global EV Registry</text>
+    <!-- 6 Sources Cards with Explicit Individual Transforms -->
+    <g transform="translate(20, 36)">
 
-      <!-- OSM Overpass -->
-      <rect x="165" y="0" width="155" height="56" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1" />
-      <text x="10" y="22" class="card-title" font-size="12">OSM / Overpass</text>
-      <text x="10" y="40" class="card-body" font-size="10.5">Parking &amp; Districts</text>
+      <!-- 1. OpenChargeMap -->
+      <g transform="translate(0, 0)">
+        <rect width="152" height="90" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1.2" />
+        <text x="12" y="24" class="card-title" fill="#00695C" font-size="13">OpenChargeMap</text>
+        <text x="12" y="44" class="card-body">&bull; Global EV Registry</text>
+        <text x="12" y="60" class="card-body">&bull; Multi-station API</text>
+        <text x="12" y="76" class="card-body">&bull; Connector ratings</text>
+      </g>
 
-      <!-- Google Places -->
-      <rect x="335" y="0" width="155" height="56" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1" />
-      <text x="10" y="22" class="card-title" font-size="12">Google Places</text>
-      <text x="10" y="40" class="card-body" font-size="10.5">Amenity Density</text>
+      <!-- 2. OSM / Overpass -->
+      <g transform="translate(166, 0)">
+        <rect width="152" height="90" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1.2" />
+        <text x="12" y="24" class="card-title" fill="#00695C" font-size="13">OSM / Overpass</text>
+        <text x="12" y="44" class="card-body">&bull; Parking facilities</text>
+        <text x="12" y="60" class="card-body">&bull; Mobility hubs</text>
+        <text x="12" y="76" class="card-body">&bull; District polygons</text>
+      </g>
 
-      <!-- NREL -->
-      <rect x="505" y="0" width="150" height="56" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1" />
-      <text x="10" y="22" class="card-title" font-size="12">NREL AFDC</text>
-      <text x="10" y="40" class="card-body" font-size="10.5">US Station Fallback</text>
+      <!-- 3. Google Places -->
+      <g transform="translate(332, 0)">
+        <rect width="152" height="90" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1.2" />
+        <text x="12" y="24" class="card-title" fill="#00695C" font-size="13">Google Places</text>
+        <text x="12" y="44" class="card-body">&bull; Commercial POIs</text>
+        <text x="12" y="60" class="card-body">&bull; Amenity density</text>
+        <text x="12" y="76" class="card-body">&bull; Spatial context</text>
+      </g>
 
-      <!-- BigQuery -->
-      <rect x="670" y="0" width="150" height="56" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1" />
-      <text x="10" y="22" class="card-title" font-size="12">Google BigQuery</text>
-      <text x="10" y="40" class="card-body" font-size="10.5">Session Telemetry</text>
+      <!-- 4. NREL AFDC -->
+      <g transform="translate(498, 0)">
+        <rect width="152" height="90" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1.2" />
+        <text x="12" y="24" class="card-title" fill="#00695C" font-size="13">NREL AFDC</text>
+        <text x="12" y="44" class="card-body">&bull; Federal station DB</text>
+        <text x="12" y="60" class="card-body">&bull; US-wide coverage</text>
+        <text x="12" y="76" class="card-body">&bull; Energy fallbacks</text>
+      </g>
 
-      <!-- OCPP -->
-      <rect x="835" y="0" width="145" height="56" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1" />
-      <text x="10" y="22" class="card-title" font-size="12">OCPP 1.6 (WS)</text>
-      <text x="10" y="40" class="card-body" font-size="10.5">Port Hardware Sync</text>
+      <!-- 5. Google BigQuery -->
+      <g transform="translate(664, 0)">
+        <rect width="152" height="90" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1.2" />
+        <text x="12" y="24" class="card-title" fill="#00695C" font-size="13">Google BigQuery</text>
+        <text x="12" y="44" class="card-body">&bull; Session telemetry</text>
+        <text x="12" y="60" class="card-body">&bull; Port utilization</text>
+        <text x="12" y="76" class="card-body">&bull; Analytics dataset</text>
+      </g>
+
+      <!-- 6. OCPP 1.6 WebSocket -->
+      <g transform="translate(830, 0)">
+        <rect width="150" height="90" rx="8" fill="#FFFFFF" stroke="#B2DFDB" stroke-width="1.2" />
+        <text x="12" y="24" class="card-title" fill="#00695C" font-size="13">OCPP 1.6 (WS)</text>
+        <text x="12" y="44" class="card-body">&bull; Live port states</text>
+        <text x="12" y="60" class="card-body">&bull; Hardware socket</text>
+        <text x="12" y="76" class="card-body">&bull; Real-time sync</text>
+      </g>
+
     </g>
   </g>
 
