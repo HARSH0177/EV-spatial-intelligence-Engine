@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+
+    env:
+      GOOGLE_CLOUD_PROJECT: ""
+      LLM_ENABLED:          "false"
+      REQUIRE_AUTH:         "false"
+      ENABLE_OCM:           "false"
+      ENABLE_OSM_OVERPASS:  "false"
+      ENABLE_GOOGLE_PLACES: "false"
+      NREL_API_KEY:         "DEMO_KEY"
+      BIGQUERY_DATASET:     "ev_advisor_core"
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Import health check
+        run: |
+          python -c "from config import cfg; print('config ok')"
+          python -c "from agents.orchestrator import OrchestratorAgent; print('orchestrator ok')"
+          python -c "from agents.advisor_agent import advisor_agent; print('advisor ok')"
+          python -c "from models.queue_model import MMcQueueModel; print('queue model ok')"
+          python -c "from utils.geo_enricher import geo_enricher; print('geo enricher ok')"
+          python -c "from utils.provider_merge import merge_and_dedupe; print('provider merge ok')"
+          python -c "from realtime.openchargemap_client import ocm_client; print('OCM client ok')"
+          python -c "from realtime.osm_places_client import osm_client; print('OSM client ok')"
+          python -c "from api.routes_discover import router; print('discover router ok')"
+          python -c "from api.routes_advisor import router; print('advisor router ok')"
+
+      - name: Run unit + integration tests
+        run: pytest tests/ -v --tb=short -x
