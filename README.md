@@ -2,6 +2,10 @@
 
 <div align="center">
 
+<img src="assets/hero-banner.svg" alt="EV Spatial Intelligence Engine Hero Banner" width="100%" />
+
+<br/><br/>
+
 [![FastAPI](https://img.shields.io/badge/FastAPI-0.111.0-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com)
 [![Python 3.11](https://img.shields.io/badge/Python-3.11-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![Google Cloud Run](https://img.shields.io/badge/Google_Cloud_Run-Deployed-4285F4?style=for-the-badge&logo=googlecloud&logoColor=white)](https://cloud.google.com/run)
@@ -18,12 +22,22 @@
 
 ---
 
-## 📌 Overview
+## 📖 About The Project
 
-**EV-Spatial-Intelligence-Engine** is a production-grade multi-agent autonomous system for electric vehicle mobility and charging infrastructure site selection. It dynamically ingests and fuses spatial data across **6 live global data sources** (BigQuery, OpenChargeMap, Google Places, OpenStreetMap Overpass, NREL AFDC, and real-time OCPP 1.6 WebSocket hardware), executing $M/M/c$ Erlang C queueing theory and Gradient Boosted demand forecasts to score and rank optimal charging station locations in any city worldwide.
+As global electric vehicle adoption accelerates, urban planners, charging network operators (CPOs), and fleet managers face a fundamental scaling bottleneck: **How to accurately discover charging infrastructure and strategically site new charging hubs without relying on hardcoded city metadata or brittle single-source APIs.**
 
-### 🌟 Key Highlights
-- **6-Agent Autonomous Architecture:** Decoupled multi-agent execution pipeline orchestrated with asynchronous fallback chains.
+Traditional approaches suffer from three systemic failure modes:
+1. **The Single-Source Illusion:** Relying solely on Google Places or OpenStreetMap results in massive data blindspots — missing live port hardware states, proprietary fleet telemetry, or regional government registries.
+2. **Deterministic Guesswork for Queues:** Most applications assume zero wait times or use static averages, failing to capture the stochastic reality of vehicle arrivals ($\lambda$) and charging durations ($\mu$).
+3. **Black-Box AI Hallucinations:** Generative AI wrappers frequently hallucinate non-existent addresses and fabricated power ratings when ungrounded by rigorous spatial mathematics.
+
+**EV-Spatial-Intelligence-Engine** solves this by decoupling the spatial intelligence pipeline into **6 autonomous specialized agents**. The engine ingests, deduplicates, and fuses data across **6 live global data sources**, executes **$M/M/c$ Erlang C queueing theory** to model driver wait distributions ($p_{50}$ and $p_{90}$), applies Gradient Boosted demand forecasting, and grounds **Vertex AI Gemini 2.0 Flash** synthesis in transparent 3-tier data provenance labels (`live` $\rightarrow$ `estimated` $\rightarrow$ `fallback`).
+
+---
+
+## 🌟 Key System Capabilities
+
+- **6-Agent Autonomous Orchestration:** Decoupled multi-agent execution pipeline with asynchronous task routing and graceful fallback chains.
 - **Global Spatial Coverage (Zero Hardcoding):** Dynamically geocodes, extracts district shapes, and models amenities for any city worldwide (validated across San Francisco, London, Berlin, Tokyo, Pune, Nairobi, São Paulo, and Dubai).
 - **Applied Queueing Theory ($M/M/c$ Erlang C):** Computes $p_{50}$ and $p_{90}$ driver wait times with mathematically proven percentile bounds across 728+ parameter configurations.
 - **3-Tier Data Provenance & Transparency:** Every station and zone recommendation carries explicit tagging (`live` $\rightarrow$ `estimated` $\rightarrow$ `fallback`) with quantitative confidence scoring.
@@ -34,7 +48,14 @@
 
 ## 🏗️ System Architecture
 
+<div align="center">
+  <img src="assets/architecture-diagram.svg" alt="System Architecture Diagram" width="100%" />
+</div>
+
+<br/>
+
 ```mermaid
+%%{init: {'theme': 'base', 'themeVariables': { 'primaryColor': '#E8F5E9', 'primaryTextColor': '#1B3B2B', 'primaryBorderColor': '#81C784', 'lineColor': '#2E4A3E', 'secondaryColor': '#EDE7F6', 'tertiaryColor': '#E3F2FD' }}}%%
 graph TD
     subgraph ClientLayer ["Client & Frontend Layer"]
         UI["Leaflet.js + OpenStreetMap SPA<br/>(/app)"]
@@ -114,6 +135,12 @@ graph TD
 
 ## 📐 Mathematical Formulation ($M/M/c$ Erlang C Model)
 
+<div align="center">
+  <img src="assets/queue-model-flow.svg" alt="Queue Model Flow Diagram" width="100%" />
+</div>
+
+<br/>
+
 To model real-world EV charging port wait times under stochastic arrival patterns ($\lambda$ arrivals/hr) and exponentially distributed charging session durations ($\mu$ sessions/hr per port) across $c$ ports:
 
 ### 1. Traffic Intensity ($\rho$)
@@ -132,6 +159,25 @@ $$P(T_q > t) = C(c, a) \cdot e^{-c\mu(1-\rho)t}$$
 $$t_{p} = \max\left(0, \; -\frac{\ln\left(\frac{1 - p}{C(c, a)}\right)}{c\mu(1-\rho)}\right)$$
 
 > **Invariant Verification:** Tested across **728 distinct parameter configurations** ($\lambda \in [0.5, 20]$, $\mu \in [10, 60\text{ min}]$, $c \in [1, 10]$) with **100.0% adherence** ($p_{50} \le p_{90}$ with zero boundary violations).
+
+---
+
+## 🌐 3-Tier Data Provenance & Quality System
+
+<div align="center">
+  <img src="assets/data-provenance-matrix.svg" alt="Data Provenance Matrix" width="100%" />
+</div>
+
+<br/>
+
+| Source | Integration Role | Data Provenance Label | Fallback Behavior |
+|---|---|---|---|
+| **Google BigQuery** | Session telemetry & port utilization | `live` / `mock-dev` | Mock local registry |
+| **OpenChargeMap** | Global charging stations & power specs | `estimated` | Overpass fallback |
+| **Google Places** | Surrounding commercial POI density | `estimated` | OSM amenity fallback |
+| **OSM / Overpass** | Parking lots, transit hubs, district polygons | `estimated` | Seeded heuristic |
+| **NREL AFDC** | High-density North American stations | `estimated` | Global OCM fallback |
+| **OCPP 1.6** | Real-time WebSocket hardware port state | `live` | Queue model estimate |
 
 ---
 
@@ -160,40 +206,6 @@ Target: https://ev-advisor-api-79118074976.us-central1.run.app
 | **Data Provenance** | Unlabeled response rate (transparency guarantee) | **0% unlabeled (144/144 tagged)** | ✅ PASS |
 | **GeoJSON Compliance** | RFC 7946 spec validity on Point feature collections | **100.0% (5/5 valid)** | ✅ PASS |
 | **Discovery Latency** | Median response time across multi-run queries ($p_{50}$) | **880 milliseconds** | ✅ PASS |
-
----
-
-## 🌐 Live Data Sources & Provenance
-
-```
- ┌──────────────────┐     ┌──────────────────┐     ┌──────────────────┐
- │  OpenChargeMap   │     │  Google Places   │     │  OSM / Overpass  │
- │ (Global Registry)│     │ (POI Enrichment) │     │(Parking/Hubs/Geo)│
- └────────┬─────────┘     └────────┬─────────┘     └────────┬─────────┘
-          │                        │                        │
-          └────────────────┬───────┴────────────────────────┘
-                           ▼
-          ┌──────────────────────────────────┐
-          │  ProviderMerge & Deduplication   │
-          │   (Haversine Spatial Clustering) │
-          └────────────────┬─────────────────┘
-                           │
-          ┌────────────────┴─────────────────┐
-          ▼                                  ▼
-┌──────────────────┐               ┌──────────────────┐
-│  NREL AFDC (US)  │               │ OCPP 1.6 (WS)    │
-│(Federal Fallback)│               │(Live Port Hardware│
-└──────────────────┘               └──────────────────┘
-```
-
-| Source | Integration Role | Data Provenance Label | Fallback Behavior |
-|---|---|---|---|
-| **Google BigQuery** | Session telemetry & port utilization | `live` / `mock-dev` | Mock local registry |
-| **OpenChargeMap** | Global charging stations & power specs | `estimated` | Overpass fallback |
-| **Google Places** | Surrounding commercial POI density | `estimated` | OSM amenity fallback |
-| **OSM / Overpass** | Parking lots, transit hubs, district polygons | `estimated` | Seeded heuristic |
-| **NREL AFDC** | High-density North American stations | `estimated` | Global OCM fallback |
-| **OCPP 1.6** | Real-time WebSocket hardware port state | `live` | Queue model estimate |
 
 ---
 
@@ -289,6 +301,11 @@ gcloud run deploy ev-advisor-api \
 
 ```
 .
+├── assets/                     # Light-theme pastel architectural diagrams & visual assets
+│   ├── hero-banner.svg         # High-resolution vector project banner & key metrics
+│   ├── architecture-diagram.svg# Complete multi-agent & data fusion pipeline architecture
+│   ├── queue-model-flow.svg    # Stochastic Erlang C M/M/c mathematical flow diagram
+│   └── data-provenance-matrix.svg # 3-tier data provenance & confidence framework
 ├── agents/                     # Autonomous multi-agent implementations
 │   ├── advisor_agent.py        # Spatial site-selection and zone synthesis
 │   ├── data_agent.py           # BigQuery telemetry & port aggregator
