@@ -89,6 +89,8 @@ The engine is structured into four decoupled horizontal layers:
 3. **Layer 3: Mathematical and Predictive Modeling Layer:** Houses analytical mathematical solvers: the $M/M/c$ Erlang C queueing engine, the Gradient Boosted Decision Tree regressor (`DemandForecaster`), and the automated numerical stability validator (`QueueModelValidator`).
 4. **Layer 4: Live Data Fusion and Hardware Protocol Layer:** Integrates external heterogeneous data sources (OpenChargeMap, OSM Overpass, Google Places, NREL AFDC, Google BigQuery, and direct OCPP 1.6 WebSocket hardware server endpoints) through the `ProviderMerge` spatial deduplication engine.
 
+![Figure 1: Four-layer decoupled multi-agent system architecture](figures/fig1_architecture.png)
+
 ### 3.2 Formal Multi-Agent Role Specifications
 Let $\mathcal{A} = \{A_{\text{orch}}, A_{\text{drv}}, A_{\text{adv}}, A_{\text{dat}}, A_{\text{sco}}, A_{\text{exp}}\}$ denote the set of six autonomous agents coordinating the decision pipeline.
 
@@ -146,6 +148,9 @@ where $a = \frac{\lambda}{\mu}$ and $\rho = \frac{a}{c} = \frac{\lambda}{c\mu}$.
 $$\pi_0 = \left[ \sum_{k=0}^{c-1} \frac{a^k}{k!} + \frac{a^c}{c!(1-\rho)} \right]^{-1}$$
 
 ### 4.2 Erlang C Delay Probability and Waiting Time Distribution
+
+![Figure 2: Continuous-Time Markov Chain (CTMC) state flow and percentile extraction](figures/fig2_queue_flow.png)
+
 The probability that an arriving vehicle finds all $c$ ports occupied and must wait in queue is:
 $$C(c, a) = P(\text{Wait} > 0) = \frac{\frac{a^c}{c!(1-\rho)}}{\sum_{k=0}^{c-1} \frac{a^k}{k!} + \frac{a^c}{c!(1-\rho)}}$$
 
@@ -206,6 +211,9 @@ Output: Deduplicated unified registry U
 ```
 
 ### 5.2 3-Tier Data Provenance System
+
+![Figure 3: Three-Tier Data Provenance and Confidence Pipeline](figures/fig3_data_provenance.png)
+
 - **Tier 1: `live` ($S_{\text{conf}} \in [0.95, 1.00]$):** Streaming OCPP 1.6 WebSocket telemetry and verified BigQuery transactions.
 - **Tier 2: `estimated` ($S_{\text{conf}} \in [0.70, 0.94]$):** Multi-source spatial API aggregation, $M/M/c$ queueing metrics, and GBDT demand forecasts.
 - **Tier 3: `fallback` ($S_{\text{conf}} \in [0.30, 0.69]$):** Deterministic geohash-seeded heuristics activated under upstream API rate-limits, with explicit `fallback_reason` audit trails.
@@ -227,6 +235,8 @@ We benchmarked the proposed analytical $M/M/c$ model against a 25,000-session Mo
 | **Mean Absolute Error (MAE)** | — | — | **9.39 min** | **13.67 min (+45.6%)** | **38.45 min (+309.4%)** |
 | **Root Mean Square Error (RMSE)** | — | — | **15.93 min** | **17.58 min** | **52.88 min** |
 
+![Figure 4: Comparative 90th percentile tail waiting time across traffic intensities](figures/fig4_queue_comparison.png)
+
 ### 6.2 Experiment 2: Spatial Siting Viability vs. Greedy POI Baselines
 Evaluated across 50 candidate urban parcels in a metropolitan area:
 
@@ -236,6 +246,8 @@ Evaluated across 50 candidate urban parcels in a metropolitan area:
 | **Competitor Overlap (within 1.5 km)** | 3.4 stations | **2.2 stations** | **-35.3% cannibalization** |
 | **Average Capital Expenditure** | \$94,200 | **\$78,600** | **-16.6% CapEx** |
 | **Composite Viability Score** | 0.339 | **0.394** | **+16.1% overall score** |
+
+![Figure 5: Spatial siting viability trade-offs across 50 candidate parcels](figures/fig5_siting_tradeoffs.png)
 
 ### 6.3 Experiment 3: Hallucination Mitigation under Sensor Outages
 Audited across 100 simulated upstream sensor dropouts and incomplete API payloads:
@@ -262,6 +274,8 @@ Profiling on Google Cloud Run with zero hardcoded metadata:
 | **Nairobi** | Kenya / Africa | 200 OK | 8 | 920 ms |
 | **São Paulo** | Brazil / South America | 200 OK | 8 | 905 ms |
 | **Dubai** | UAE / Middle East | 200 OK | 8 | 850 ms |
+
+![Figure 6: Global metropolitan generalization and latency across 10 cities](figures/fig6_global_latency.png)
 
 ### 6.5 Ablation Study
 Measuring system degradation upon individual component removal:

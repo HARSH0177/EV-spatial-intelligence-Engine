@@ -1,0 +1,149 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 480" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F4FBF7" />
+      <stop offset="50%" stop-color="#F0F4FD" />
+      <stop offset="100%" stop-color="#FDF8F5" />
+    </linearGradient>
+
+    <!-- Card Gradients -->
+    <linearGradient id="cardMint" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#E8F8F0" />
+      <stop offset="100%" stop-color="#D5F2E3" />
+    </linearGradient>
+    <linearGradient id="cardBlue" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#EBF3FE" />
+      <stop offset="100%" stop-color="#D7E7FD" />
+    </linearGradient>
+    <linearGradient id="cardPurple" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F3EDFC" />
+      <stop offset="100%" stop-color="#E3D7F8" />
+    </linearGradient>
+    <linearGradient id="cardAmber" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#FEF6EB" />
+      <stop offset="100%" stop-color="#FDE8CE" />
+    </linearGradient>
+
+    <!-- Shadows -->
+    <filter id="shadowLight" x="-5%" y="-5%" width="110%" height="115%" filterUnits="userSpaceOnUse">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#1B382B" flood-opacity="0.06" />
+    </filter>
+    <filter id="badgeShadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="2" stdDeviation="4" flood-color="#000000" flood-opacity="0.04" />
+    </filter>
+  </defs>
+
+  <style>
+    .title { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 800; font-size: 38px; fill: #112211; }
+    .subtitle { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 500; font-size: 17px; fill: #385040; }
+    .tag-title { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 700; font-size: 13px; fill: #1B5E20; text-transform: uppercase; letter-spacing: 1.2px; }
+    .card-num { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 800; font-size: 32px; fill: #112211; }
+    .card-label { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 600; font-size: 14px; fill: #2C4034; }
+    .card-sub { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 400; font-size: 12px; fill: #5A7566; }
+    .badge-text { font-family: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif; font-weight: 600; font-size: 12px; fill: #1C3829; }
+  </style>
+
+  <!-- Background Base -->
+  <rect width="1200" height="480" rx="20" fill="url(#bgGrad)" stroke="#E0ECE4" stroke-width="1.5" />
+
+  <!-- Background Subtle Grid / Dots -->
+  <g opacity="0.25">
+    <circle cx="80" cy="70" r="2.5" fill="#81C784" />
+    <circle cx="140" cy="70" r="2.5" fill="#81C784" />
+    <circle cx="200" cy="70" r="2.5" fill="#81C784" />
+    <circle cx="1060" cy="90" r="3" fill="#64B5F6" />
+    <circle cx="1120" cy="90" r="3" fill="#64B5F6" />
+    <circle cx="1090" cy="140" r="3" fill="#BA68C8" />
+  </g>
+
+  <!-- Top Pill Tag -->
+  <g transform="translate(60, 48)">
+    <rect width="260" height="32" rx="16" fill="#E2F6EA" stroke="#A3E2BE" stroke-width="1" />
+    <circle cx="18" cy="16" r="6" fill="#2E7D32" />
+    <text x="34" y="21" class="tag-title">Autonomous Multi-Agent v2.2</text>
+  </g>
+
+  <!-- Title & Description -->
+  <text x="60" y="128" class="title">EV Spatial Intelligence Engine</text>
+  <text x="60" y="164" class="subtitle">Global EV Charging Site-Selection &amp; Discovery powered by 6 Autonomous Agents,</text>
+  <text x="60" y="190" class="subtitle">M/M/c Erlang C Queueing Theory, and Real-Time Multi-Source Spatial Data Fusion.</text>
+
+  <!-- Feature Pill Row -->
+  <g transform="translate(60, 218)">
+    <!-- Pill 1 -->
+    <g transform="translate(0, 0)" filter="url(#badgeShadow)">
+      <rect width="145" height="30" rx="15" fill="#FFFFFF" stroke="#D1E8DC" stroke-width="1" />
+      <text x="16" y="19" class="badge-text">⚡ 6 Active Agents</text>
+    </g>
+    <!-- Pill 2 -->
+    <g transform="translate(155, 0)" filter="url(#badgeShadow)">
+      <rect width="180" height="30" rx="15" fill="#FFFFFF" stroke="#CFDFFA" stroke-width="1" />
+      <text x="16" y="19" class="badge-text">🌐 6 Live Data Sources</text>
+    </g>
+    <!-- Pill 3 -->
+    <g transform="translate(345, 0)" filter="url(#badgeShadow)">
+      <rect width="185" height="30" rx="15" fill="#FFFFFF" stroke="#E6D7FA" stroke-width="1" />
+      <text x="16" y="19" class="badge-text">📐 Erlang C Queue Math</text>
+    </g>
+    <!-- Pill 4 -->
+    <g transform="translate(540, 0)" filter="url(#badgeShadow)">
+      <rect width="190" height="30" rx="15" fill="#FFFFFF" stroke="#FCE2C4" stroke-width="1" />
+      <text x="16" y="19" class="badge-text">🤖 Gemini 2.0 Explainer</text>
+    </g>
+    <!-- Pill 5 -->
+    <g transform="translate(740, 0)" filter="url(#badgeShadow)">
+      <rect width="150" height="30" rx="15" fill="#FFFFFF" stroke="#C8E6C9" stroke-width="1" />
+      <text x="16" y="19" class="badge-text">🚀 GCP Cloud Run</text>
+    </g>
+  </g>
+
+  <!-- Bottom Metric Cards Row -->
+  <g transform="translate(60, 280)">
+    
+    <!-- Card 1: Pass Rate -->
+    <g transform="translate(0, 0)" filter="url(#shadowLight)">
+      <rect width="250" height="150" rx="16" fill="url(#cardMint)" stroke="#BCE8CE" stroke-width="1.2" />
+      <text x="24" y="46" class="card-num" fill="#145A32">91.1%</text>
+      <text x="24" y="80" class="card-label">Eval Pass Rate</text>
+      <text x="24" y="105" class="card-sub">51/56 Production Checks</text>
+      <text x="24" y="125" class="card-sub">Automated Harness</text>
+      <circle cx="214" cy="42" r="16" fill="#FFFFFF" opacity="0.7" />
+      <text x="207" y="48" font-size="16">✅</text>
+    </g>
+
+    <!-- Card 2: Discovery Latency -->
+    <g transform="translate(275, 0)" filter="url(#shadowLight)">
+      <rect width="250" height="150" rx="16" fill="url(#cardBlue)" stroke="#BDD7FB" stroke-width="1.2" />
+      <text x="24" y="46" class="card-num" fill="#0D47A1">880 ms</text>
+      <text x="24" y="80" class="card-label">Discovery Latency (p50)</text>
+      <text x="24" y="105" class="card-sub">Multi-Source Ingestion</text>
+      <text x="24" y="125" class="card-sub">In-Memory TTL Caching</text>
+      <circle cx="214" cy="42" r="16" fill="#FFFFFF" opacity="0.7" />
+      <text x="207" y="48" font-size="16">⚡</text>
+    </g>
+
+    <!-- Card 3: Global Scale -->
+    <g transform="translate(550, 0)" filter="url(#shadowLight)">
+      <rect width="250" height="150" rx="16" fill="url(#cardPurple)" stroke="#D8C7F5" stroke-width="1.2" />
+      <text x="24" y="46" class="card-num" fill="#4A148C">10 / 10</text>
+      <text x="24" y="80" class="card-label">Global Cities Validated</text>
+      <text x="24" y="105" class="card-sub">Spanning 5 Continents</text>
+      <text x="24" y="125" class="card-sub">Zero Hardcoded Metadata</text>
+      <circle cx="214" cy="42" r="16" fill="#FFFFFF" opacity="0.7" />
+      <text x="207" y="48" font-size="16">🌍</text>
+    </g>
+
+    <!-- Card 4: Queue Accuracy -->
+    <g transform="translate(825, 0)" filter="url(#shadowLight)">
+      <rect width="255" height="150" rx="16" fill="url(#cardAmber)" stroke="#F8D4A8" stroke-width="1.2" />
+      <text x="24" y="46" class="card-num" fill="#B7410E">100%</text>
+      <text x="24" y="80" class="card-label">Queue Invariant (p50 ≤ p90)</text>
+      <text x="24" y="105" class="card-sub">728 Parameter Configs</text>
+      <text x="24" y="125" class="card-sub">Zero Boundary Violations</text>
+      <circle cx="219" cy="42" r="16" fill="#FFFFFF" opacity="0.7" />
+      <text x="212" y="48" font-size="16">📐</text>
+    </g>
+
+  </g>
+</svg>
