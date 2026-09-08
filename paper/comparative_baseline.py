@@ -103,6 +103,9 @@ def run_queue_comparative_experiment():
     mae_proposed_p90 = []
     mae_mm1_p90 = []
     mae_static_p90 = []
+    sq_err_proposed_p90 = []
+    sq_err_mm1_p90 = []
+    sq_err_static_p90 = []
     
     print(f"{'Arrival (veh/h)':<16}{'Intensity (rho)':<16}{'Sim p90 (GT)':<14}{'Proposed p90':<14}{'M/M/1 p90':<12}{'Static p90':<12}")
     print("-" * 84)
@@ -118,6 +121,9 @@ def run_queue_comparative_experiment():
         mae_proposed_p90.append(abs(prop["p90"] - gt))
         mae_mm1_p90.append(abs(mm1["p90"] - gt))
         mae_static_p90.append(abs(static_p90 - gt))
+        sq_err_proposed_p90.append((prop['p90'] - gt) ** 2)
+        sq_err_mm1_p90.append((mm1['p90'] - gt) ** 2)
+        sq_err_static_p90.append((static_p90 - gt) ** 2)
         
         print(f"{l:<16.1f}{rho:<16.2f}{gt:<14.2f}{prop['p90']:<14.2f}{mm1['p90']:<12.2f}{static_p90:<12.2f}")
         
@@ -130,6 +136,13 @@ def run_queue_comparative_experiment():
     print(f"  Proposed M/M/c Erlang C MAE:    {avg_mae_prop:.2f} mins (Best)")
     print(f"  Lumped M/M/1 Baseline MAE:      {avg_mae_mm1:.2f} mins (+{((avg_mae_mm1 - avg_mae_prop)/avg_mae_prop)*100:.1f}% error)")
     print(f"  Static 15-min Baseline MAE:     {avg_mae_static:.2f} mins (+{((avg_mae_static - avg_mae_prop)/avg_mae_prop)*100:.1f}% error)")
+    rmse_prop = np.sqrt(np.mean(sq_err_proposed_p90))
+    rmse_mm1 = np.sqrt(np.mean(sq_err_mm1_p90))
+    rmse_static = np.sqrt(np.mean(sq_err_static_p90))
+    print(f"Root Mean Square Error (Tail p90 Wait Time):")
+    print(f"  Proposed M/M/c Erlang C RMSE:   {rmse_prop:.2f} mins")
+    print(f"  Lumped M/M/1 Baseline RMSE:     {rmse_mm1:.2f} mins")
+    print(f"  Static 15-min Baseline RMSE:    {rmse_static:.2f} mins")
     print()
 
 def run_siting_spatial_comparative_experiment():
@@ -157,6 +170,10 @@ def run_siting_spatial_comparative_experiment():
     
     utility = 0.35 * norm_demand + 0.30 * norm_grid - 0.20 * norm_comp - 0.15 * norm_cost
     proposed_indices = np.argsort(-utility)[:5]
+
+    greedy_capex = est_installation_cost[greedy_indices].mean()
+    proposed_capex = est_installation_cost[proposed_indices].mean()
+    capex_pct_change = (proposed_capex - greedy_capex) / greedy_capex * 100
     
     # Metrics
     greedy_avg_grid = np.mean(grid_capacity[greedy_indices])
@@ -173,9 +190,12 @@ def run_siting_spatial_comparative_experiment():
     print(f"{'Average Grid Headroom (kW)':<35}{greedy_avg_grid:<25.1f}{proposed_avg_grid:<25.1f} (+{((proposed_avg_grid-greedy_avg_grid)/greedy_avg_grid)*100:.1f}%)")
     print(f"{'Existing Competitors in Radius':<35}{greedy_avg_comp:<25.1f}{proposed_avg_comp:<25.1f} ({((proposed_avg_comp-greedy_avg_comp)/greedy_avg_comp)*100:.1f}%)")
     print(f"{'Composite Viability Score':<35}{greedy_avg_utility:<25.3f}{proposed_avg_utility:<25.3f} (+{((proposed_avg_utility-greedy_avg_utility)/greedy_avg_utility)*100:.1f}%)")
+    print(f"{'Avg. Installation CapEx (USD)':<35}{greedy_capex:<25.0f}{proposed_capex:<25.0f} ({capex_pct_change:.1f}%)")
     print("-" * 85)
-    print("Conclusion: Greedy POI siting causes catastrophic grid overload and oversaturation in existing clusters,")
-    print("whereas the Proposed Multi-Attribute Matrix achieves +43.2% higher grid viability and cuts competitor overlap.\n")
+    print(f"Conclusion: Greedy POI siting causes grid strain and competitive oversaturation; the proposed")
+    print(f"Multi-Attribute Matrix achieves +{((proposed_avg_grid-greedy_avg_grid)/greedy_avg_grid)*100:.1f}% higher grid headroom, "
+          f"{((proposed_avg_comp-greedy_avg_comp)/greedy_avg_comp)*100:.1f}% competitor overlap change, and "
+          f"{capex_pct_change:.1f}% CapEx change.\n")
 
 def run_provenance_hallucination_experiment():
     print("================================================================================")
