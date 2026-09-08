@@ -96,42 +96,49 @@ def create_redesigned_fig1():
     # =========================================================================
     # 2. CENTER-UPPER ZONE: AUTONOMOUS MULTI-AGENT ORCHESTRATION MESH
     # =========================================================================
-    draw_card(4.2, 4.4, 7.8, 4.8, C_BG_AGENT, C_BORDER_AGENT, radius=0.35, lw=1.5)
-    draw_header_banner(4.35, 8.80, 7.5, 0.35, ACCENT_PURPLE, "2. AUTONOMOUS MULTI-AGENT COORDINATION MESH (asyncio.gather DAG)")
+    draw_card(4.2, 4.45, 7.8, 4.75, C_BG_AGENT, C_BORDER_AGENT, radius=0.35, lw=1.5)
+    draw_header_banner(4.35, 8.82, 7.5, 0.33, ACCENT_PURPLE, "2. AUTONOMOUS MULTI-AGENT COORDINATION MESH (asyncio.gather DAG)")
 
     # Master Orchestrator at Top Center of Mesh
-    draw_card(6.35, 7.25, 3.5, 1.35, "#FFFFFF", ACCENT_PURPLE, radius=0.22, lw=1.5)
-    draw_header_banner(6.35, 8.25, 3.5, 0.35, ACCENT_PURPLE, "OrchestratorAgent (Coordinator)")
-    ax.text(8.10, 7.75, "End-to-End Workflow DAG Dispatcher\nParallel Task Distribution • Request Lifecycle Tracking\nCircuit Breaker & Fallback Handler",
+    draw_card(6.35, 7.35, 3.5, 1.30, "#FFFFFF", ACCENT_PURPLE, radius=0.22, lw=1.5)
+    draw_header_banner(6.35, 8.32, 3.5, 0.33, ACCENT_PURPLE, "OrchestratorAgent (Coordinator)")
+    ax.text(8.10, 7.82, "End-to-End Workflow DAG Dispatcher\nParallel Task Distribution • Request Lifecycle Tracking\nCircuit Breaker & Fallback Handler",
             fontsize=7.8, ha='center', va='center', color='#334155', linespacing=1.2)
 
     # 3 Parallel Worker Agents in middle tier
     agents = [
-        ("DriverAssistantAgent", "Geodesic radius search (10 km)\nConnector & power taxonomy\nBattery SOC filtering", "#2563EB", 4.45, 5.55, 2.3, 1.35),
-        ("AdvisorAgent", "Administrative zoning lookup\nOverpass / Nominatim sync\nLand suitability index", "#0284C7", 6.95, 5.55, 2.3, 1.35),
-        ("DataAgent", "Hardware WebSocket polling\nBigQuery session queries\nLive cache synchronization", "#059669", 9.45, 5.55, 2.3, 1.35),
+        ("DriverAssistantAgent", "Geodesic radius search (10 km)\nConnector & power taxonomy\nBattery SOC filtering", "#2563EB", 4.45, 5.75, 2.3, 1.30),
+        ("AdvisorAgent", "Administrative zoning lookup\nOverpass / Nominatim sync\nLand suitability index", "#0284C7", 6.95, 5.75, 2.3, 1.30),
+        ("DataAgent", "Hardware WebSocket polling\nBigQuery session queries\nLive cache synchronization", "#059669", 9.45, 5.75, 2.3, 1.30),
     ]
     for name, desc, col, x_pos, y_pos, w, h in agents:
         draw_card(x_pos, y_pos, w, h, "#FFFFFF", col, radius=0.18, lw=1.1)
-        draw_header_banner(x_pos, y_pos + h - 0.32, w, 0.32, col, name, font_size=8.0)
+        draw_header_banner(x_pos, y_pos + h - 0.30, w, 0.30, col, name, font_size=8.0)
         ax.text(x_pos + w/2, y_pos + 0.48, desc, fontsize=7.4, ha='center', va='center', color='#334155', linespacing=1.2)
 
     # Arrows from Orchestrator to Workers
     for tx in [5.6, 8.1, 10.6]:
-        ax.annotate('', xy=(tx, 6.95), xytext=(tx, 7.25),
+        ax.annotate('', xy=(tx, 7.05), xytext=(tx, 7.35),
                     arrowprops=dict(arrowstyle="-|>", color=ACCENT_PURPLE, lw=1.4, mutation_scale=11))
 
-    # Scoring Agent (Aggregator in Agent Mesh)
-    draw_card(5.6, 4.55, 5.0, 0.85, "#FFFFFF", ACCENT_AMBER, radius=0.18, lw=1.2)
-    draw_header_banner(5.6, 5.10, 5.0, 0.30, ACCENT_AMBER, "ScoringAgent: Multi-Attribute Utility Optimization", font_size=8.3)
-    ax.text(8.10, 4.82, "Weighted Utility Score: Grid Headroom (+17.3%) • Competitor Saturation (-35.3%) • CapEx (-9.4%) • Weights Sum = 1.0",
+    # Subtle aggregation arrows from Workers to ScoringAgent
+    for wx in [5.6, 8.1, 10.6]:
+        ax.annotate('', xy=(wx, 5.50), xytext=(wx, 5.75),
+                    arrowprops=dict(arrowstyle="-|>", color=ACCENT_AMBER, lw=1.1, linestyle=":", mutation_scale=9))
+
+    # Scoring Agent (Aggregator in Agent Mesh - Widened with ample margins & 2-line layout)
+    draw_card(4.65, 4.58, 6.9, 0.92, "#FFFFFF", ACCENT_AMBER, radius=0.18, lw=1.2)
+    draw_header_banner(4.65, 5.18, 6.9, 0.32, ACCENT_AMBER, "ScoringAgent: Multi-Attribute Utility Optimization", font_size=8.3)
+    ax.text(8.10, 4.96, r"Utility Formulation: $U(s) = \sum w_i f_i(s)$ with Normalized Weights $\sum w_i = 1.0$",
             fontsize=7.4, ha='center', va='center', color='#1E293B')
+    ax.text(8.10, 4.74, "Grid Headroom (+17.3%)  •  Competitor Saturation (-35.3%)  •  CapEx (-9.4%)",
+            fontsize=7.2, fontweight='semibold', ha='center', va='center', color='#475569')
 
     # =========================================================================
     # 3. CENTER-LOWER ZONE: STOCHASTIC MATHEMATICAL & PREDICTIVE CORE
     # =========================================================================
-    draw_card(4.2, 0.6, 7.8, 3.6, C_BG_MATH, C_BORDER_MATH, radius=0.35, lw=1.5)
-    draw_header_banner(4.35, 3.85, 7.5, 0.35, ACCENT_GREEN, "3. STOCHASTIC MATHEMATICAL MODELING & INVARIANT MESH")
+    draw_card(4.2, 0.6, 7.8, 3.55, C_BG_MATH, C_BORDER_MATH, radius=0.35, lw=1.5)
+    draw_header_banner(4.35, 3.82, 7.5, 0.33, ACCENT_GREEN, "3. STOCHASTIC MATHEMATICAL MODELING & INVARIANT MESH")
 
     # M/M/c Erlang C Box
     draw_card(4.4, 0.75, 3.6, 3.0, "#FFFFFF", ACCENT_GREEN, radius=0.22, lw=1.2)
@@ -214,15 +221,15 @@ def create_redesigned_fig1():
     ax.text(4.05, 6.45, "Fused\nStream", fontsize=7.5, fontweight='bold', color=ACCENT_BLUE, ha='center')
 
     # 2. Agent Mesh to Math Solvers
-    ax.annotate('', xy=(8.1, 4.25), xytext=(8.1, 4.55),
-                arrowprops=dict(arrowstyle="-|>", color=ACCENT_GREEN, lw=2.0, mutation_scale=14))
+    ax.annotate('', xy=(8.1, 4.15), xytext=(8.1, 4.58),
+                arrowprops=dict(arrowstyle="-|>", color=ACCENT_GREEN, lw=1.8, mutation_scale=12))
     badge = patches.FancyBboxPatch(
-        (7.45, 4.30), 1.3, 0.28,
-        boxstyle=patches.BoxStyle("Round", pad=0, rounding_size=0.10),
-        facecolor="#FFFFFF", edgecolor=ACCENT_GREEN, linewidth=0.8, zorder=5
+        (7.35, 4.18), 1.5, 0.24,
+        boxstyle=patches.BoxStyle("Round", pad=0, rounding_size=0.08),
+        facecolor="#FFFFFF", edgecolor=ACCENT_GREEN, linewidth=0.9, zorder=5
     )
     ax.add_patch(badge)
-    ax.text(8.1, 4.44, r"Traffic $\lambda, \mu, c$", fontsize=7.2, fontweight='bold', color=ACCENT_GREEN, ha='center', va='center', zorder=6)
+    ax.text(8.1, 4.30, r"Traffic $\lambda, \mu, c$", fontsize=7.2, fontweight='bold', color=ACCENT_GREEN, ha='center', va='center', zorder=6)
 
     # 3. Orthogonal Routing: Math Solvers up to ExplanationAgent
     # Route from (11.8, 3.0) -> (12.1, 3.0) -> (12.1, 7.4) -> (12.45, 7.4)
