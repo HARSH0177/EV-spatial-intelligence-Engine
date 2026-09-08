@@ -9,7 +9,6 @@
 \usepackage{booktabs}
 \usepackage{multirow}
 \usepackage{geometry}
-\usepackage{subcaption}
 \geometry{a4paper, margin=1in}
 
 \usepackage{hyperref}
@@ -25,9 +24,11 @@
 
 \journal{Engineering Applications of Artificial Intelligence}
 
-\newtheorem{theorem}{Theorem}
-\newtheorem{lemma}{Lemma}
-\newtheorem{definition}{Definition}
+\makeatletter
+\@ifundefined{theorem}{\newtheorem{theorem}{Theorem}}{}
+\@ifundefined{lemma}{\newtheorem{lemma}{Lemma}}{}
+\@ifundefined{definition}{\newtheorem{definition}{Definition}}{}
+\makeatother
 
 \begin{document}
 
@@ -160,7 +161,7 @@ The engine is architectured into four strictly decoupled horizontal layers to en
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.95\textwidth]{fig1_architecture.png}
+\includegraphics[width=0.95\textwidth]{fig1_architecture.pdf}
 \caption{Four-layer decoupled multi-agent system architecture and inter-agent coordination pipeline across Interface, Agent Orchestration, Mathematical Solvers, and Live Data Protocols.}
 \label{fig:architecture}
 \end{figure*}
@@ -274,7 +275,7 @@ Evaluating the infinite geometric series $\sum_{m=0}^{\infty} \rho^m = \frac{1}{
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.92\textwidth]{fig2_queue_flow.png}
+\includegraphics[width=0.92\textwidth]{fig2_queue_flow.pdf}
 \caption{Continuous-Time Markov Chain (CTMC) state transition rate diagram for the multi-server $M/M/c$ queueing system and closed-form delay percentile extraction pipeline ($p_{50}$ and $p_{90}$).}
 \label{fig:queue_flow}
 \end{figure*}
@@ -456,7 +457,7 @@ A provenance tag $\tau$ is defined as a 3-tuple $\tau = \langle \mathcal{L}, S_{
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.92\textwidth]{fig3_data_provenance.png}
+\includegraphics[width=0.92\textwidth]{fig3_data_provenance.pdf}
 \caption{Three-tier data provenance framework and confidence scoring pipeline preventing generative AI hallucinations across live telemetry, mathematical estimation, and deterministic fallback states.}
 \label{fig:data_provenance}
 \end{figure*}
@@ -516,7 +517,7 @@ $\lambda$ (veh/h) & $\rho$ & (25k Sessions) & (Erlang C) & Baseline & (15 min Fi
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{fig4_queue_comparison.png}
+\includegraphics[width=\columnwidth]{fig4_queue_comparison.pdf}
 \caption{Comparative 90th percentile tail waiting time ($p_{90}$) across traffic intensities $\rho \in [0.25, 0.90]$ for $c=4$ charging ports: 25,000-session Monte Carlo Discrete-Event Simulation Ground Truth vs. Proposed $M/M/c$ Erlang C vs. Lumped $M/M/1$ Baseline vs. Static Heuristic.}
 \label{fig:queue_comparison}
 \end{figure}
@@ -552,7 +553,7 @@ As shown in Table~\ref{tab:siting_results} and the multi-panel comparative break
 
 \begin{figure*}[t]
 \centering
-\includegraphics[width=0.95\textwidth]{fig5_siting_tradeoffs.png}
+\includegraphics[width=0.95\textwidth]{fig5_siting_tradeoffs.pdf}
 \caption{Spatial siting viability trade-offs across 50 candidate urban parcels: Proposed Multi-Attribute Utility Matrix vs. Greedy Commercial POI Clustering on available grid headroom (+17.3\%), competitor cannibalization ($-35.3\%$), and composite utility (+16.1\%).}
 \label{fig:siting_tradeoffs}
 \end{figure*}
@@ -618,7 +619,7 @@ Table~\ref{tab:global_cities} and the latency distribution in Fig.~\ref{fig:glob
 
 \begin{figure}[t]
 \centering
-\includegraphics[width=\columnwidth]{fig6_global_latency.png}
+\includegraphics[width=\columnwidth]{fig6_global_latency.pdf}
 \caption{Global metropolitan generalization and sub-second median discovery response latency ($p_{50}$) across ten cities spanning five continents on Google Cloud Run.}
 \label{fig:global_latency}
 \end{figure}
