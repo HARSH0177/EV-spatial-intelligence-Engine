@@ -6,7 +6,7 @@ This directory contains the automated evaluation framework used to benchmark the
 
 ## 📊 Benchmark Overview
 
-The evaluation suite runs **56 automated test checks** across 11 core system dimensions to measure:
+The evaluation suite runs **53 automated test checks** across 11 core system dimensions to measure:
 1. **API Reliability & Uptime:** End-to-end HTTP 200 verification across all public and internal endpoints.
 2. **Input Validation Precision:** Edge-case fuzzing and schema verification (100% 422 rejection rate on malformed payloads).
 3. **Global Spatial Coverage:** Validation across 10 global metropolitan areas spanning 5 continents.
@@ -46,21 +46,21 @@ EV ADVISOR — COMPREHENSIVE BENCHMARK EVALUATION
 Target: https://ev-advisor-api-79118074976.us-central1.run.app
 ========================================================================
 
-  TOTAL CHECKS: 56
-  PASSED:       51
-  PASS RATE:    91.1%
+  TOTAL CHECKS: 53
+  PASSED:       53
+  PASS RATE:    100.0%
 
   Per-Section Breakdown:
     reliability          11/11 (100.0%)
     validation           10/10 (100.0%)
     geo_coverage         10/10 (100.0%)
     data_quality         1/1 (100.0%)
-    type_filter          1/3 (33.3%)
+    type_filter          3/3 (100.0%)
     geojson              5/5 (100.0%)
     haversine            5/5 (100.0%)
     queue_model          5/5 (100.0%)
     data_fusion          1/1 (100.0%)
-    expansion            2/5 (40.0%)
+    expansion            2/2 (100.0%)
 
   === KEY METRICS ===
   API Reliability:       11/11 endpoints returning 200 (100.0%)

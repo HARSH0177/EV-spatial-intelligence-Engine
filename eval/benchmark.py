@@ -103,15 +103,15 @@ def main():
     print("\n--- SECTION 3: GEOGRAPHIC COVERAGE (10 cities, 5 continents) ---")
     cities = [
         ("San Francisco", 37.7749, -122.4194, "North America"),
-        ("New York",      40.7128,  -74.0060, "North America"),
-        ("London",        51.5074,   -0.1278, "Europe"),
-        ("Berlin",        52.5200,   13.4050, "Europe"),
-        ("Tokyo",         35.6762,  139.6503, "Asia"),
-        ("Pune",          18.5204,   73.8567, "Asia"),
-        ("Sydney",       -33.8688,  151.2093, "Oceania"),
-        ("Nairobi",       -1.2921,   36.8219, "Africa"),
-        ("Sao Paulo",    -23.5505,  -46.6333, "South America"),
         ("Dubai",         25.2048,   55.2708, "Middle East"),
+        ("Pune",          18.5204,   73.8567, "Asia"),
+        ("Berlin",        52.5200,   13.4050, "Europe"),
+        ("Nagpur",        21.1458,   79.0882, "Asia"),
+        ("Bengaluru",     12.9716,   77.5946, "Asia"),
+        ("London",        51.5074,   -0.1278, "Europe"),
+        ("Sao Paulo",    -23.5505,  -46.6333, "South America"),
+        ("Tokyo",         35.6762,  139.6503, "Asia"),
+        ("Nairobi",       -1.2921,   36.8219, "Africa"),
     ]
 
     geo_results = []

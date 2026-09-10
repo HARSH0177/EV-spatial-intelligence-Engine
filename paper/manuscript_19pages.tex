@@ -560,35 +560,9 @@ As shown in Table~\ref{tab:siting_results} and the multi-panel comparative break
 \label{fig:siting_tradeoffs}
 \end{figure*}
 
-\subsection{Experiment 3: Provenance-Grounded LLM Hallucination Mitigation}
-To evaluate the efficacy of the 3-tier provenance framework in preventing generative AI hallucinations, we injected 100 simulated upstream sensor failure scenarios (simulating rate-limiting drops and omitted power rating fields in OpenChargeMap payloads). 
-
-We compared:
-\begin{enumerate}
-    \item \textbf{Zero-Shot Ungrounded LLM:} Standard prompt requesting station specifications without provenance constraints.
-    \item \textbf{Proposed 3-Tier Provenance Pipeline:} Conditioning the Gemini 2.0 Flash prompt strictly upon audited provenance labels and fallback tags.
-\end{enumerate}
-
-\begin{table}[htbp]
-\centering
-\caption{Hallucination mitigation audit across 100 simulated sensor outage scenarios.}
-\label{tab:provenance_audit}
-\resizebox{\columnwidth}{!}{%
-\begin{tabular}{lcc}
-\toprule
-\textbf{Audit Dimension} & \textbf{Zero-Shot Ungrounded LLM} & \textbf{Proposed Provenance Pipeline} \\
-\midrule
-Fabricated Connector Types & 19 / 100 & \textbf{0 / 100} \\
-Fabricated Power Ratings (kW) & 28 / 100 & \textbf{0 / 100} \\
-Hallucination Error Rate & 28.0\% & \textbf{0.0\%} \\
-Explicit Fallback Transparency & 0.0\% (Silent failure) & \textbf{100.0\% (Auditable tag)} \\
-Average Confidence Score & Uncalibrated (N/A) & 0.485 (Calibrated) \\
-\bottomrule
-\end{tabular}%
-}
-\end{table}
-
-Table~\ref{tab:provenance_audit} demonstrates that while ungrounded LLMs fabricate plausible but completely incorrect charging parameters in 28\% of outage cases, the proposed provenance architecture reduces the hallucination rate to \textbf{0.0\%} by programmatically enforcing explicit fallback declarations.
+\subsection{Experiment 3: 3-Tier Provenance and Hallucination Mitigation Framework}
+\label{sec:provenance_eval}
+Every station and zone recommendation carries an immutable provenance label: \textbf{LIVE} (confidence 0.95--1.00, from active OCPP 1.6 telemetry or verified BigQuery port sessions), \textbf{ESTIMATED} (0.70--0.94, from multi-source API fusion, the $M/M/c$ queue model, or the GBT forecaster), and \textbf{FALLBACK} (0.30--0.69, deterministic seeded estimators used when upstream APIs fail, always accompanied by an explicit \texttt{fallback\_reason} string). This design guarantees that the \textit{ExplanationAgent} conditions its generation on data reliability tiers: attributes at the fallback tier are described with explicit hedging rather than presented as measured telemetry. Quantitative human-in-the-loop audit of hallucination rate reduction under systematic sensor outage injection is planned as follow-up empirical validation (Section~\ref{sec:limitations}).
 
 \subsection{Experiment 4: Global Metropolitan Scalability and Runtime Latency}
 To confirm that the engine operates with zero hardcoded regional dependencies, we executed live automated discovery queries across ten global metropolitan centers spanning five continents. 
