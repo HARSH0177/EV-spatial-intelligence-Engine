@@ -96,7 +96,7 @@ The proposed platform is organized into four operational layers, illustrated in 
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.85\textwidth]{fig1_architecture.pdf}
-\caption{Four-layer system architecture: interface/gateway, multi-agent orchestration, mathematical/predictive modeling, and live data fusion.}
+\caption{Four-layer decoupled multi-agent system architecture and inter-agent coordination pipeline across Interface, Agent Orchestration, Mathematical Solvers, and Live Data Protocols.}
 \label{fig:architecture}
 \end{figure}
 
@@ -134,7 +134,7 @@ t_p = \max\left(0, \; -\frac{\ln\left(\frac{1 - p}{C(c, a)}\right)}{c\mu(1-\rho)
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.7\textwidth]{fig2_queue_flow.pdf}
-\caption{Data flow through the $M/M/c$ queue model, from raw arrival/service parameters to the provenance-tagged $p_{50}$/$p_{90}$ output consumed by the explanation layer. Source: \texttt{assets/queue-model-flow.svg}, restyled per the note in Figure~\ref{fig:architecture}.}
+\caption{Continuous-Time Markov Chain (CTMC) state transition rate diagram for the multi-server $M/M/c$ queueing system and closed-form delay percentile extraction pipeline ($p_{50}$ and $p_{90}$).}
 \label{fig:queueflow}
 \end{figure}
 
@@ -145,7 +145,7 @@ Every station and zone recommendation carries an immutable provenance label (Fig
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.9\textwidth]{fig3_data_provenance.pdf}
-\caption{The 3-tier data provenance framework: source, confidence range, and the explicit \texttt{fallback\_reason} contract for Tier 3. Source: \texttt{assets/data-provenance-matrix.svg}, restyled per Figure~\ref{fig:architecture}.}
+\caption{Three-tier data provenance framework and confidence scoring pipeline preventing generative AI hallucinations across live telemetry, mathematical estimation, and deterministic fallback states.}
 \label{fig:provenance}
 \end{figure}
 
@@ -189,13 +189,13 @@ $\lambda$ (veh/h) & Intensity $\rho$ & DES Ground Truth & Proposed $M/M/c$ & Lum
 
 \subsection{Offline Demand Forecaster Temporal Evaluation}
 \label{sec:forecaster_eval}
-To evaluate the Gradient Boosted Tree demand regressor within the predictive layer, we backtested the model using an offline chronological holdout split implemented in \texttt{models/forecaster\_eval.py}. To eliminate temporal data leakage inherent in random shuffling, the first 80\% of chronological sessions serve as the training set, while the remaining 20\% form the unseen test set. The model ingests cyclic sinusoidal/cosinusoidal encodings for hour-of-day, day-of-week, and month, alongside weekend flags, charger power ($\text{kW}$), and lag-1h utilization. Compared against an empirical hour-of-day mean baseline, the GBT forecaster reduces Mean Absolute Error from 0.0899 to 0.0012 (a 98.7\% relative error reduction) and RMSE from 0.1106 to 0.0017, confirming that dynamic feature conditioning yields substantial predictive fidelity over static historical lookup tables before parameters enter the /M/c$ queue solver.
+To evaluate the Gradient Boosted Tree demand regressor within the predictive layer, we backtested the model using an offline chronological holdout split implemented in \texttt{models/forecaster\_eval.py}. To eliminate temporal data leakage inherent in random shuffling, the first 80\% of chronological sessions serve as the training set, while the remaining 20\% form the unseen test set. The model ingests cyclic sinusoidal/cosinusoidal encodings for hour-of-day, day-of-week, and month, alongside weekend flags, charger power ($\text{kW}$), and lag-1h utilization. Compared against an empirical hour-of-day mean baseline, the GBT forecaster reduces Mean Absolute Error from 0.0899 to 0.0012 (a 98.7\% relative error reduction) and RMSE from 0.1106 to 0.0017, confirming that dynamic feature conditioning yields substantial predictive fidelity over static historical lookup tables before parameters enter the $M/M/c$ queue solver.
 
 \subsection{Automated Evaluation Harness}
 \begin{figure}[htbp]
 \centering
 \includegraphics[width=0.75\textwidth]{fig6_global_latency.pdf}
-\caption{Global metropolitan generalization and sub-second median discovery response latency ({50}$) across ten cities spanning five continents on Google Cloud Run.}
+\caption{Global metropolitan generalization and sub-second median discovery response latency ($p_{50}$) across ten cities spanning five continents on Google Cloud Run.}
 \label{fig:globallatency}
 \end{figure}
 
