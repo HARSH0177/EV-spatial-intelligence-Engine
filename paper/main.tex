@@ -37,14 +37,15 @@
 
 \title{An Autonomous Multi-Agent Spatial Decision Support System for EV Charging Infrastructure Siting via Stochastic $M/M/c$ Queueing and Heterogeneous Data Fusion}
 
-\author[inst1]{Harsh Ambule\corref{cor1}}
-\ead{harshambule0177@gmail.com}
+\author[inst1]{Harsh Pradeepkumar Ambule\corref{cor1}}
+\ead{harshambule612@gmail.com}
 \cortext[cor1]{Corresponding author}
 
-\affiliation[inst1]{organization={Department of Computer Science and Engineering},
-            addressline={Global EV Systems Research Initiative},
+\affiliation[inst1]{organization={Department of Artificial Intelligence, Priyadarshini Bhagwati College of Engineering (PBCOE)},
+            addressline={Hingna Road},
             city={Nagpur},
-            postcode={440001},
+            state={Maharashtra},
+            postcode={440024},
             country={India}}
 
 \begin{abstract}
@@ -186,6 +187,11 @@ $\lambda$ (veh/h) & Intensity $\rho$ & DES Ground Truth & Proposed $M/M/c$ & Lum
 
 \textbf{Discussion.} The static heuristic fails to capture the non-linear tail-queue explosion under heavy traffic ($\rho \ge 0.80$), underestimating delay by over 100 minutes at $\rho=0.90$. The lumped $M/M/1$ model tracks the qualitative escalation but consistently overestimates wait time at moderate load due to server-pooling distortion. The proposed $M/M/c$ formulation tracks the DES ground truth closely across all tested regimes, with error concentrated at the highest-intensity point ($\rho=0.90$), where all analytical approximations of Erlang-C systems are known to be most sensitive to the exponential-service-time assumption.
 
+
+\subsection{Offline Demand Forecaster Temporal Evaluation}
+\label{sec:forecaster_eval}
+To evaluate the Gradient Boosted Tree demand regressor within the predictive layer, we backtested the model using an offline chronological holdout split implemented in \texttt{models/forecaster\_eval.py}. To eliminate temporal data leakage inherent in random shuffling, the first 80\% of chronological sessions serve as the training set, while the remaining 20\% form the unseen test set. The model ingests cyclic sinusoidal/cosinusoidal encodings for hour-of-day, day-of-week, and month, alongside weekend flags, charger power ($\text{kW}$), and lag-1h utilization. Compared against an empirical hour-of-day mean baseline, the GBT forecaster reduces Mean Absolute Error from 0.0899 to 0.0012 (a 98.7\% relative error reduction) and RMSE from 0.1106 to 0.0017, confirming that dynamic feature conditioning yields substantial predictive fidelity over static historical lookup tables before parameters enter the /M/c$ queue solver.
+
 \subsection{Automated Evaluation Harness}
 \begin{figure}[htbp]
 \centering
@@ -194,7 +200,7 @@ $\lambda$ (veh/h) & Intensity $\rho$ & DES Ground Truth & Proposed $M/M/c$ & Lum
 \label{fig:globallatency}
 \end{figure}
 
-The system ships an automated harness (\texttt{eval/benchmark.py}) designed to evaluate deployment health across 10 functional modules: API reliability (11 endpoints), input-validation correctness (10 malformed-payload cases), cross-continental spatial coverage (10 cities, 5 continents), data-quality labeling completeness, output type-filtering correctness, GeoJSON schema compliance (5 checks), geodesic (Haversine) distance accuracy against 5 known city-pair distances, the 728-configuration queueing invariant (5 boundary checks), multi-source data-fusion presence, and expansion-ranking monotonicity --- \textbf{53 checks in total}. In offline verification, all 10 mathematical and geodesic invariant checks pass with 100\% adherence (0 invariant violations across 728 queue regimes and Haversine distance errors $<0.05\%$), while the remaining 43 checks validate end-to-end HTTP responses against the live Cloud Run microservices.
+The system ships an automated harness (\texttt{eval/benchmark.py}) designed to evaluate deployment health across 10 functional modules: API reliability (11 endpoints), input-validation correctness (10 malformed-payload cases), cross-continental spatial coverage (10 cities, 5 continents), data-quality labeling completeness, output type-filtering correctness, GeoJSON schema compliance (5 checks), geodesic (Haversine) distance accuracy against 5 known city-pair distances, the 728-configuration queueing invariant (5 boundary checks), multi-source data-fusion presence, and expansion-ranking monotonicity --- \textbf{53 checks in total}. In offline verification, all 10 mathematical and geodesic invariant checks pass with 100\% adherence (0 invariant violations across 728 queue regimes and Haversine distance errors $<0.05\%$), while the remaining 43 checks validate end-to-end HTTP responses against the live Cloud Run microservices. To guarantee permanent evaluation reproducibility independent of live cloud runtime hosting or external credentials, all 53 checks can also be executed locally offline by deploying the containerized microservices via \texttt{docker compose up} and running \texttt{python eval/benchmark.py} against \texttt{http://localhost:8000}.
 
 \subsection{Synthetic Sensitivity Analysis: Multi-Attribute vs. Density-Only Siting}
 \label{sec:siting}
@@ -268,6 +274,10 @@ We are explicit about what this paper's evaluation does and does not establish, 
 \section{Conclusion}
 \label{sec:conclusion}
 This paper presented an autonomous multi-agent spatial decision-support system for EV charging infrastructure planning, combining a 6-agent asynchronous architecture, a stochastic $M/M/c$ Erlang C queueing formulation with a proven and numerically verified percentile-ordering invariant across 728 configurations, and a 3-tier data-provenance framework intended to ground natural-language explanation. Against Monte Carlo discrete-event simulation ground truth, the proposed queueing model reduces tail wait-time estimation error by 45.6\% relative to a lumped $M/M/1$ baseline. We have been explicit about which additional claims --- multi-criteria siting superiority and LLM hallucination mitigation --- remain design rationale supported by synthetic illustration rather than field-validated results, and we outline the follow-up studies needed to substantiate them empirically.
+
+
+\section*{Author Biography}
+\noindent\textbf{Harsh Pradeepkumar Ambule} is an Independent Researcher based in Nagpur, Maharashtra, India. He received the B.Tech degree in Artificial Intelligence from Priyadarshini Bhagwati College of Engineering (PBCOE), Nagpur, in 2026 (e-mail: harshambule612@gmail.com). His research focuses on autonomous multi-agent systems, spatial decision-support architectures, queueing theory, and explainable AI in electric vehicle charging infrastructure.
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{references}
