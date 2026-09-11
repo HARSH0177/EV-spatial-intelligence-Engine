@@ -27,6 +27,13 @@ from datetime import datetime
 from typing import List, Optional
 
 import numpy as np
+import os
+import sys
+
+# Ensure repository root is on sys.path regardless of execution method
+_repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+if _repo_root not in sys.path:
+    sys.path.insert(0, _repo_root)
 
 from models.demand_forecaster import DemandForecaster, _build_features
 
