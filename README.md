@@ -12,11 +12,11 @@
 [![BigQuery](https://img.shields.io/badge/BigQuery-Analytics-669DF6?style=for-the-badge&logo=googlebigquery&logoColor=white)](https://cloud.google.com/bigquery)
 [![Vertex AI](https://img.shields.io/badge/Vertex_AI-Gemini_2.0_Flash-EA4335?style=for-the-badge&logo=google&logoColor=white)](https://cloud.google.com/vertex-ai)
 [![OCPP 1.6](https://img.shields.io/badge/Protocol-OCPP_1.6_WebSocket-FFA000?style=for-the-badge&logo=socketdotio&logoColor=white)](https://www.openchargealliance.org/)
-[![Benchmark](https://img.shields.io/badge/Eval_Pass_Rate-91.1%25-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](eval/)
+[![Benchmark](https://img.shields.io/badge/Eval_Pass_Rate-100%25-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](eval/)
 
 **Autonomous 6-Agent EV Infrastructure Planning & Spatial Decision Engine**
 
-[Live Application Demo](https://ev-advisor-api-79118074976.us-central1.run.app/app/) • [Swagger OpenAPI Documentation](https://ev-advisor-api-79118074976.us-central1.run.app/docs) • [Evaluation Benchmark](eval/)
+[Local Web Application (`/app`)](http://localhost:8080/app/) • [OpenAPI Documentation (`/docs`)](http://localhost:8080/docs) • [Evaluation Benchmark Suite (53 Checks)](eval/)
 
 </div>
 

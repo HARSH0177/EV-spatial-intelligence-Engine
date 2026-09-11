@@ -25,15 +25,22 @@ The evaluation suite runs **53 automated test checks** across 11 core system dim
 pip install httpx numpy scikit-learn
 ```
 
-### Execution Against Production
+### Execution (Local Microservices via Docker or Uvicorn)
+Start the local microservices:
+```bash
+docker compose up -d
+```
+*(or locally without Docker: `python -m uvicorn api.main:app --port 8080`)*
+
+Then execute the 53-check benchmark suite:
 ```bash
 python eval/benchmark.py
 ```
 
-### Execution Target Configuration
-You can customize the evaluation target URL by setting the `BASE_URL` environment variable:
+### Custom Execution Target
+To evaluate against a specific remote or containerized deployment, set `BASE_URL`:
 ```bash
-BASE_URL="https://ev-advisor-api-79118074976.us-central1.run.app" python eval/benchmark.py
+BASE_URL="http://localhost:8080" python eval/benchmark.py
 ```
 
 ---

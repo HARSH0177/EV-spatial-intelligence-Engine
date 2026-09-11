@@ -14,7 +14,7 @@ from collections import defaultdict
 
 import httpx
 
-BASE = os.environ.get("BASE_URL", "https://ev-advisor-api-79118074976.us-central1.run.app")
+BASE = os.environ.get("BASE_URL", "http://localhost:8080")
 TIMEOUT = int(os.environ.get("BENCHMARK_TIMEOUT", "45"))
 
 all_results = []
@@ -25,10 +25,11 @@ def api(method, path, body=None, timeout=TIMEOUT):
     url = f"{BASE}{path}"
     start = time.time()
     try:
+        t = httpx.Timeout(timeout, connect=4.0)
         if method == "GET":
-            r = httpx.get(url, timeout=timeout)
+            r = httpx.get(url, timeout=t)
         else:
-            r = httpx.post(url, json=body, timeout=timeout)
+            r = httpx.post(url, json=body, timeout=t)
         elapsed = round(time.time() - start, 3)
         return r, elapsed
     except Exception as e:
@@ -57,6 +58,15 @@ def main():
     print(f"Target: {BASE}")
     print(f"Started: {time.strftime('%Y-%m-%d %H:%M:%S')}")
     print("=" * 72)
+
+    # Pre-flight reachability check
+    r_health, _ = api("GET", "/health", timeout=3)
+    if not r_health or r_health.status_code != 200:
+        print(f"\n[NOTICE] Target {BASE} is not currently responding.")
+        print("To run the 43 HTTP checks against local containerized microservices:")
+        print("  1. docker compose up -d (or: python -m uvicorn api.main:app --port 8080)")
+        print("  2. python eval/benchmark.py")
+        print("Proceeding with benchmark execution...\n")
 
     # 1. API RELIABILITY
     print("\n--- SECTION 1: API RELIABILITY ---")
