@@ -1,0 +1,31 @@
+Dear Editor-in-Chief,
+
+I am pleased to submit our original research manuscript entitled:
+"An Autonomous Multi-Agent Spatial Decision Support System for Electric Vehicle Charging Infrastructure Siting via Stochastic M/M/c Queueing and Heterogeneous Data Fusion"
+for consideration as a Full Length Article in Engineering Applications of Artificial Intelligence (EAAI).
+
+Rapid global adoption of electric vehicles (EVs) necessitates scalable, reliable computational frameworks for charging network operators (CPOs) and municipal urban planners. Existing infrastructure decision-support tools suffer from three fundamental engineering limitations: (1) single-source geospatial data silos that miss real-time hardware telemetry, (2) deterministic queueing heuristics that systematically underestimate tail driver wait times, and (3) black-box generative AI wrappers prone to spatial hallucination when upstream sensor feeds fail.
+
+To overcome these challenges, this paper presents EV-Spatial-Intelligence-Engine, an autonomous multi-agent spatial decision-support system. Key contributions include:
+1. An analytical continuous-time Markovian M/M/c Erlang C queueing formulation with closed-form solutions for median (p50) and tail (p90) wait times, alongside a formal mathematical proof that the percentile ordering invariant (p50 <= p90) holds unconditionally across all traffic regimes (verified across a 728-configuration parameter mesh).
+2. Comprehensive empirical benchmarking against a 25,000-session Monte Carlo discrete-event simulation ground truth, demonstrating that the proposed M/M/c formulation reduces tail wait-time Mean Absolute Error (MAE) to 9.39 minutes, outperforming lumped M/M/1 approximations (13.67 min MAE, 45.6% reduction) and static planning heuristics (38.45 min MAE, 309.4% reduction).
+3. A multi-attribute spatial utility matrix that enhances available electrical grid headroom by +17.3% and reduces competitor overlap by -35.3% relative to conventional greedy commercial point-of-interest (POI) density heuristics.
+4. An auditable 3-tier data provenance framework (live, estimated, fallback) providing deterministic grounding for foundation model explanations (Vertex AI Gemini 2.0 Flash) to prevent hallucinations.
+5. Containerized deployment validated via a 53-check automated test harness across ten global metropolitan cities spanning five continents with sub-second median discovery response latency.
+
+In alignment with Elsevier's and EAAI's open science and reproducibility standards, the complete codebase, 53-check evaluation harness, discrete-event simulation scripts, and mathematical solvers are open-source and permanently archived:
+- Zenodo Archive (Permanent DOI): https://doi.org/10.5281/zenodo.22707521
+- Public GitHub Codebase: https://github.com/HARSH0177/EV-spatial-intelligence-Engine
+- Packaged Reproduction Artifact: eval_artifact.zip (attached as Supplementary Material)
+
+This manuscript is an original work that has not been published previously and is not under consideration for publication elsewhere. All authors have read and approved the final manuscript. There are no competing interests to declare.
+
+Thank you very much for your consideration of our work.
+
+Sincerely,
+
+Harsh Pradeepkumar Ambule
+Department of Artificial Intelligence
+Priyadarshini Bhagwati College of Engineering (PBCOE)
+Nagpur, Maharashtra 440024, India
+Email: harshambule612@gmail.com

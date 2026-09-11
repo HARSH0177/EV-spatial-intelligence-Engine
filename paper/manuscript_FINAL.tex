@@ -35,20 +35,12 @@
 
 \begin{frontmatter}
 
-\title{An Autonomous Multi-Agent Spatial Decision Support System for EV Charging Infrastructure Siting via Stochastic $M/M/c$ Queueing and Heterogeneous Data Fusion}
+\title{An Autonomous Multi-Agent Spatial Decision Support System for Electric Vehicle Charging Infrastructure Siting via Stochastic $M/M/c$ Queueing and Heterogeneous Data Fusion}
 
-\author[inst1]{Harsh Pradeepkumar Ambule\corref{cor1}}
-\ead{harshambule612@gmail.com}
-\cortext[cor1]{Corresponding author}
-
-\affiliation[inst1]{organization={Department of Artificial Intelligence, Priyadarshini Bhagwati College of Engineering (PBCOE)},
-            city={Nagpur},
-            state={Maharashtra},
-            postcode={440024},
-            country={India}}
+\author{Anonymized for Double-Blind Peer Review}
 
 \begin{abstract}
-Rapid global adoption of electric vehicles (EVs) necessitates scalable computational frameworks for charging network operators (CPOs) and urban planners to identify optimal charging hub locations and forecast driver wait times. Existing infrastructure decision-support tools suffer from three fundamental limitations: (1) single-source geospatial data silos that miss live port hardware telemetry, (2) deterministic assumptions that underestimate stochastic queue wait times, and (3) black-box generative AI wrappers prone to spatial hallucination. In this paper, we present \textbf{EV-Spatial-Intelligence-Engine}, an autonomous multi-agent spatial decision-support system. The platform orchestrates six specialized asynchronous agents: an \textit{Orchestrator}, \textit{DriverAssistant}, \textit{Advisor}, \textit{Data}, \textit{Scoring}, and an \textit{ExplanationAgent} powered by Vertex AI Gemini 2.0 Flash. The engine integrates an analytical multi-server $M/M/c$ Erlang C queueing formulation to estimate median ($p_{50}$) and 90th percentile ($p_{90}$) driver wait times, alongside a Gradient Boosted Tree regressor for port utilization forecasting. We prove and numerically verify a percentile-ordering invariant ($p_{50}\le p_{90}$) across 728 distinct arrival-rate/service-rate/capacity configurations with zero violations. Against a 25{,}000-session Monte Carlo discrete-event simulation ground truth, the proposed $M/M/c$ model achieves a tail wait-time Mean Absolute Error (MAE) of 9.39 minutes, outperforming a lumped $M/M/1$ approximation (13.67 min MAE, +45.6\%) and a static duration heuristic (38.45 min MAE, +309.4\%). A 3-tier data provenance framework tags every spatial feature with an explicit confidence label (\texttt{live}, \texttt{estimated}, \texttt{fallback}) to ground the explanation layer and prevent unlabeled or fabricated attributes from reaching the end user. The engine is deployed as a containerized service on Google Cloud Run and validated with a 53-check automated harness spanning API reliability, input-validation robustness, cross-continental spatial coverage, geodesic accuracy, and the queueing invariant above; we additionally report a controlled synthetic sensitivity analysis illustrating how a multi-attribute siting utility differs from density-only heuristics under varying grid-capacity and competition conditions. We discuss the scope and limitations of the current evaluation and outline the field validation required before the siting-quality and hallucination-mitigation claims can be made empirically.
+Rapid adoption of electric vehicles (EVs) requires scalable decision-support systems for charging network operators and urban planners to site charging hubs and forecast queue delays. Existing tools suffer from single-source data silos, deterministic assumptions that underestimate stochastic delays, and generative AI wrappers prone to spatial hallucination. We present \textbf{EV-Spatial-Intelligence-Engine}, an autonomous multi-agent spatial decision-support system. The architecture coordinates six asynchronous agents: an \textit{Orchestrator}, \textit{DriverAssistant}, \textit{Advisor}, \textit{Data}, \textit{Scoring}, and an \textit{ExplanationAgent} powered by Vertex AI Gemini 2.0 Flash. The platform integrates an analytical multi-server $M/M/c$ Erlang C queueing model to compute median ($p_{50}$) and 90th-percentile ($p_{90}$) wait times, alongside a Gradient Boosted Tree utilization forecaster. We prove and numerically verify a percentile-ordering invariant ($p_{50} \le p_{90}$) across 728 parameter regimes with zero violations. Against a 25{,}000-session Monte Carlo discrete-event simulation ground truth, the $M/M/c$ model achieves a tail wait-time Mean Absolute Error (MAE) of 9.39 minutes, outperforming a lumped $M/M/1$ baseline (13.67 min MAE, 45.6\% reduction) and a static heuristic (38.45 min MAE, 309.4\% reduction). A 3-tier data provenance framework (\texttt{live}, \texttt{estimated}, \texttt{fallback}) grounds the explanation layer to prevent unverified assertions. The platform is deployed as a containerized service on Google Cloud Run and validated via a 53-check automated test harness spanning API reliability, input robustness, multi-city spatial coverage, geodesic precision, and queueing invariants. We present a synthetic sensitivity analysis comparing multi-attribute siting against density-only heuristics, and discuss the field validation required for production siting claims.
 \end{abstract}
 
 \begin{keyword}
@@ -56,6 +48,7 @@ Multi-Agent Systems \sep Electric Vehicle Infrastructure \sep $M/M/c$ Queueing T
 \end{keyword}
 
 \end{frontmatter}
+
 
 \section{Introduction}
 \label{sec:intro}
@@ -117,7 +110,7 @@ C(c, a) = \frac{\frac{a^c}{c!(1-\rho)}}{\sum_{k=0}^{c-1} \frac{a^k}{k!} + \frac{
 
 The unconditional cumulative distribution function (CDF) of waiting time $W_q$ in the queue is:
 \begin{equation}
-P(W_q \le t) = 1 - C(c, a) \cdot e^{-c\mu(1-\rho)t}, \quad t \ge 0
+P(W_q \le t) = 1 - C(c, a) \exp\bigl(-c\mu(1-\rho)t\bigr), \quad t \ge 0
 \end{equation}
 
 Solving for the $p$-th percentile wait time $t_p$ analytically yields:
@@ -275,14 +268,20 @@ We are explicit about what this paper's evaluation does and does not establish, 
 This paper presented an autonomous multi-agent spatial decision-support system for EV charging infrastructure planning, combining a 6-agent asynchronous architecture, a stochastic $M/M/c$ Erlang C queueing formulation with a proven and numerically verified percentile-ordering invariant across 728 configurations, and a 3-tier data-provenance framework intended to ground natural-language explanation. Against Monte Carlo discrete-event simulation ground truth, the proposed queueing model reduces tail wait-time estimation error by 45.6\% relative to a lumped $M/M/1$ baseline. We have been explicit about which additional claims --- multi-criteria siting superiority and LLM hallucination mitigation --- remain design rationale supported by synthetic illustration rather than field-validated results, and we outline the follow-up studies needed to substantiate them empirically.
 
 
-\section*{Code and Data Availability}
-The complete codebase, discrete-event simulation scripts, evaluation benchmark harness, and multi-agent microservice architecture are open-source and publicly available on GitHub at \url{https://github.com/HARSH0177/EV-spatial-intelligence-Engine} and permanently archived on Zenodo at \url{https://doi.org/10.5281/zenodo.22707521}. All core mathematical queueing models, discrete-event Monte Carlo benchmarks, and invariant boundary sweeps are locally reproducible without cloud runtime dependencies or proprietary API credentials.
+\section*{CRediT Authorship Contribution Statement}
+The author contributed to conceptualization, methodology, mathematical modeling, software development, discrete-event simulation, formal analysis, investigation, data curation, writing (original draft, review \& editing), visualization, and project administration.
 
-\section*{Declaration of Generative AI in the Writing Process}
+\section*{Funding}
+This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
+
+\section*{Declaration of Competing Interests}
+The author confirms that there are no competing financial or non-financial interests, currently or previously, including serving in an editorial capacity for \textit{Engineering Applications of Artificial Intelligence}.
+
+\section*{Data and Code Availability}
+The complete codebase, discrete-event simulation scripts, evaluation benchmark harness, and multi-agent microservice architecture are available as Supplementary Material accompanying this manuscript, permanently archived on Zenodo at \url{https://doi.org/10.5281/zenodo.22707521} and on GitHub at \url{https://github.com/HARSH0177/EV-spatial-intelligence-Engine}. All core mathematical queueing models, discrete-event Monte Carlo benchmarks, and invariant boundary sweeps are locally reproducible without cloud runtime dependencies or proprietary API credentials.
+
+\section*{Declaration of Generative AI and AI-Assisted Technologies in the Writing Process}
 During the preparation of this work, the author used generative AI tools (Google Gemini and Anthropic Claude) for language refinement, code audit, and LaTeX typesetting assistance. After using these tools, the author reviewed and edited the content as needed and takes full responsibility for the integrity and scientific conclusions of the publication.
-
-\section*{Author Biography}
-\noindent\textbf{Harsh Pradeepkumar Ambule} is an Independent Researcher based in Nagpur, Maharashtra, India. He received the B.Tech degree in Artificial Intelligence from Priyadarshini Bhagwati College of Engineering (PBCOE), Nagpur, in 2026 (e-mail: \href{mailto:harshambule612@gmail.com}{harshambule612@gmail.com}). His research focuses on autonomous multi-agent systems, spatial decision-support architectures, queueing theory, and explainable AI in electric vehicle charging infrastructure. He is also the author of a multi-modal SAR-optical-topographic cross-attention framework for satellite cloud removal, currently under peer review, and co-author of two publications on a multi-agent, LLM-powered system for real-time fake news verification and credibility analysis, developed as his undergraduate final-year project.
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{references}

@@ -37,7 +37,17 @@
 
 \title{An Autonomous Multi-Agent Spatial Decision Support System for Electric Vehicle Charging Infrastructure Siting via Stochastic $M/M/c$ Queueing and Heterogeneous Data Fusion}
 
-\author{Anonymized for Double-Blind Peer Review}
+
+\author[inst1]{Harsh Pradeepkumar Ambule\corref{cor1}}
+\ead{harshambule612@gmail.com}
+\cortext[cor1]{Corresponding author}
+
+\affiliation[inst1]{organization={Department of Artificial Intelligence, Priyadarshini Bhagwati College of Engineering (PBCOE)},
+            city={Nagpur},
+            state={Maharashtra},
+            postcode={440024},
+            country={India}}
+
 
 \begin{abstract}
 Rapid adoption of electric vehicles (EVs) requires scalable decision-support systems for charging network operators and urban planners to site charging hubs and forecast queue delays. Existing tools suffer from single-source data silos, deterministic assumptions that underestimate stochastic delays, and generative AI wrappers prone to spatial hallucination. We present \textbf{EV-Spatial-Intelligence-Engine}, an autonomous multi-agent spatial decision-support system. The architecture coordinates six asynchronous agents: an \textit{Orchestrator}, \textit{DriverAssistant}, \textit{Advisor}, \textit{Data}, \textit{Scoring}, and an \textit{ExplanationAgent} powered by Vertex AI Gemini 2.0 Flash. The platform integrates an analytical multi-server $M/M/c$ Erlang C queueing model to compute median ($p_{50}$) and 90th-percentile ($p_{90}$) wait times, alongside a Gradient Boosted Tree utilization forecaster. We prove and numerically verify a percentile-ordering invariant ($p_{50} \le p_{90}$) across 728 parameter regimes with zero violations. Against a 25{,}000-session Monte Carlo discrete-event simulation ground truth, the $M/M/c$ model achieves a tail wait-time Mean Absolute Error (MAE) of 9.39 minutes, outperforming a lumped $M/M/1$ baseline (13.67 min MAE, 45.6\% reduction) and a static heuristic (38.45 min MAE, 309.4\% reduction). A 3-tier data provenance framework (\texttt{live}, \texttt{estimated}, \texttt{fallback}) grounds the explanation layer to prevent unverified assertions. The platform is deployed as a containerized service on Google Cloud Run and validated via a 53-check automated test harness spanning API reliability, input robustness, multi-city spatial coverage, geodesic precision, and queueing invariants. We present a synthetic sensitivity analysis comparing multi-attribute siting against density-only heuristics, and discuss the field validation required for production siting claims.
@@ -269,7 +279,7 @@ This paper presented an autonomous multi-agent spatial decision-support system f
 
 
 \section*{CRediT Authorship Contribution Statement}
-The author contributed to conceptualization, methodology, mathematical modeling, software development, discrete-event simulation, formal analysis, investigation, data curation, writing (original draft, review \& editing), visualization, and project administration.
+\textbf{Harsh Pradeepkumar Ambule:} Conceptualization, Methodology, Software, Validation, Formal analysis, Investigation, Data curation, Writing -- original draft, Writing -- review \& editing, Visualization, Project administration.
 
 \section*{Funding}
 This research did not receive any specific grant from funding agencies in the public, commercial, or not-for-profit sectors.
@@ -282,6 +292,9 @@ The complete codebase, discrete-event simulation scripts, evaluation benchmark h
 
 \section*{Declaration of Generative AI and AI-Assisted Technologies in the Writing Process}
 During the preparation of this work, the author used generative AI tools (Google Gemini and Anthropic Claude) for language refinement, code audit, and LaTeX typesetting assistance. After using these tools, the author reviewed and edited the content as needed and takes full responsibility for the integrity and scientific conclusions of the publication.
+
+\section*{Author Biography}
+\noindent\textbf{Harsh Pradeepkumar Ambule} is an Independent Researcher based in Nagpur, Maharashtra, India. He received the B.Tech degree in Artificial Intelligence from Priyadarshini Bhagwati College of Engineering (PBCOE), Nagpur, in 2026 (e-mail: \href{mailto:harshambule612@gmail.com}{harshambule612@gmail.com}). His research focuses on autonomous multi-agent systems, spatial decision-support architectures, queueing theory, and explainable AI in electric vehicle charging infrastructure. He is also the author of a multi-modal SAR-optical-topographic cross-attention framework for satellite cloud removal, currently under peer review, and co-author of two publications on a multi-agent, LLM-powered system for real-time fake news verification and credibility analysis, developed as his undergraduate final-year project.
 
 \bibliographystyle{elsarticle-harv}
 \bibliography{references}

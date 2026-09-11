@@ -1,0 +1,6 @@
+Highlights:
+• Decoupled 6-agent system for real-time EV charging discovery and zone siting.
+• Stochastic M/M/c Erlang C closed-form model with proven p50 <= p90 tail invariant.
+• 45.6% lower tail wait error versus lumped M/M/1 against 25k discrete simulation.
+• 3-tier provenance framework tags spatial features to prevent hallucinated advice.
+• Zero-hardcoded generalization across 10 global cities with sub-second latency.
