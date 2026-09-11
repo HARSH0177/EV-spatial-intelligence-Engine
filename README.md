@@ -13,6 +13,7 @@
 [![Vertex AI](https://img.shields.io/badge/Vertex_AI-Gemini_2.0_Flash-EA4335?style=for-the-badge&logo=google&logoColor=white)](https://cloud.google.com/vertex-ai)
 [![OCPP 1.6](https://img.shields.io/badge/Protocol-OCPP_1.6_WebSocket-FFA000?style=for-the-badge&logo=socketdotio&logoColor=white)](https://www.openchargealliance.org/)
 [![Benchmark](https://img.shields.io/badge/Eval_Pass_Rate-100%25-brightgreen?style=for-the-badge&logo=pytest&logoColor=white)](eval/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22707521.svg)](https://doi.org/10.5281/zenodo.22707521)
 
 **Autonomous 6-Agent EV Infrastructure Planning & Spatial Decision Engine**
 
