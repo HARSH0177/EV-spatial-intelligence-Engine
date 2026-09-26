@@ -86,6 +86,55 @@ The system architecture diagram above illustrates the 4-layer asynchronous data 
 | **ScoringAgent** | Multi-attribute utility matrix combining demand, grid load, ROI, and accessibility | Vectorized Composite Weighted Scoring |
 | **ExplanationAgent** | Natural language reasoning explaining *why* a site was selected and what signals were modeled | Vertex AI Gemini 2.0 Flash |
 
+### 🔄 Multi-Agent Collaboration & Routing Sequence Diagram
+
+The sequence diagram below models the asynchronous orchestration flow across the 6 autonomous agents, live spatial providers, stochastic Erlang C queue model, and Gemini reasoning engine:
+
+```mermaid
+sequenceDiagram
+    autonumber
+    actor Driver as Driver / EV Operator
+    participant UI as Leaflet.js Map UI
+    participant Gateway as FastAPI Gateway (Cloud Run)
+    participant Orchestrator as OrchestratorAgent
+    participant Data as DataAgent (6 Providers)
+    participant DriverAgent as DriverAssistantAgent
+    participant Queue as M/M/c Queue Model
+    participant Scoring as ScoringAgent
+    participant Explainer as ExplanationAgent (Gemini 2.0)
+
+    Driver->>UI: Input Destination, Range & Desired SoC
+    UI->>Gateway: POST /api/search/routing (Origin, Dest, Connector)
+    Gateway->>Orchestrator: Initialize Request Lifecycle
+    Orchestrator->>Data: Request Multi-Source Ingestion
+
+    alt Live Streams Active (Normal Flow)
+        Data->>Data: Fetch OCM, OSM, Google Places, NREL, BigQuery & OCPP
+        Data-->>Orchestrator: Aggregated Live GeoJSON Candidates
+    else Provider Latency / API Rate Limit
+        Data-->>Orchestrator: Degraded Fallback to Cached Provenance Mesh
+    end
+
+    Orchestrator->>DriverAgent: Forward Geo-Candidates
+    DriverAgent->>DriverAgent: Haversine Indexing & Connector Normalization (CCS/Type2)
+    DriverAgent-->>Orchestrator: Distance-Sorted Feasible Candidate Stations
+
+    Orchestrator->>Queue: Submit Arrival Rates (lambda) & Service Times (mu)
+    Queue->>Queue: Compute Traffic Intensity (rho = lambda / (c * mu))
+    Queue->>Queue: Erlang C Delay Probability C(c, a) & p50/p90 Wait Times
+    Queue-->>Orchestrator: Verified Stochastic Delay Metrics
+
+    Orchestrator->>Scoring: Compute Multi-Attribute Utility Matrix
+    Scoring->>Scoring: Weight Distance + Charger Power (120/240kW) + Queue Delay + Grid Load
+    Scoring-->>Orchestrator: Ranked Candidate Stations
+
+    Orchestrator->>Explainer: Prompt with Top-Ranked Station & Signal Attribution
+    Explainer-->>Orchestrator: Return Structured Natural-Language Reasoning
+    Orchestrator-->>Gateway: Assembled Routing & Queue Telemetry Payload
+    Gateway-->>UI: Stream Optimized Waypoint, Wait-Times & Explanations
+    UI-->>Driver: Render Real-Time Routing Vector & Port Cards
+```
+
 ---
 
 ## 📐 Mathematical Formulation ($M/M/c$ Erlang C Model)
