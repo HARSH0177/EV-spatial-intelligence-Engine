@@ -4,4 +4,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends gcc g++ && rm -
 COPY requirements.txt .
 RUN pip install --no-cache-dir $(grep -v "^pytest\|^#" requirements.txt | tr '\n' ' ')
 COPY . .
-CMD ["sh", "-c", "exec uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-8080}"]
+ENV PORT=8080
+EXPOSE 8080
+CMD sh -c "uvicorn api.main:app --host 0.0.0.0 --port ${PORT:-8080}"
